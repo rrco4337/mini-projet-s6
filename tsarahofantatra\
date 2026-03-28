@@ -1,0 +1,1 @@
+docker exec -it mini-projet-s6-postgres psql -U postgres -d mini_projet_s6

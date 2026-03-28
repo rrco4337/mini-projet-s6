@@ -46,7 +46,7 @@ Reponse attendue:
 ```json
 {"status":"ok"}
 ```
-
+docker exec -it mini-projet-s6-postgres psql -U postgres -d mini_projet_s6
 ### Configuration
 
 Les variables d'environnement sont configurees dans `.env.example`:
