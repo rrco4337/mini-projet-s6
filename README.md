@@ -1,5 +1,76 @@
 # mini-projet-s6
 
+## Initialisation Spring Boot + PostgreSQL
+
+Le projet contient maintenant une base backend Spring Boot connectee a PostgreSQL.
+
+### Prerequis
+
+- Java 21
+- Maven 3.9+
+- Docker (optionnel, recommande pour PostgreSQL)
+
+### Demarrer PostgreSQL avec Docker
+
+```bash
+docker compose up -d
+```
+
+La base exposee localement:
+
+- Host: `localhost`
+- Port: `5433`
+- Database: `mini_projet_s6`
+- Username: `postgres`
+- Password: `postgres`
+
+### Lancer l'application
+
+```bash
+mvn spring-boot:run
+```
+
+Interface CRUD categorie (JSP, sans API):
+
+- Liste: `http://localhost:8080/categories`
+- Creation: `http://localhost:8080/categories/new`
+
+Endpoint de test:
+
+```bash
+curl http://localhost:8080/api/health
+```
+
+Reponse attendue:
+
+```json
+{"status":"ok"}
+```
+
+### Configuration
+
+Les variables d'environnement sont configurees dans `.env.example`:
+
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `SERVER_PORT`
+
+Note: le fichier `bd/base.sql` est un script MySQL. Pour PostgreSQL, il faudra l'adapter avant import.
+
+La page categories utilise la table PostgreSQL suivante:
+
+```sql
+CREATE TABLE IF NOT EXISTS categories (
+	id          SERIAL       PRIMARY KEY,
+	nom         VARCHAR(100) NOT NULL,
+	slug        VARCHAR(110) NOT NULL UNIQUE,
+	description TEXT,
+	created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+	updated_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+```
+
 Partie
 Tâches détaillées
 Sous-tâches précises
