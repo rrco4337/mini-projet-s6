@@ -1,99 +1,66 @@
-fichier .txt téléchargeableRÉPARTITION BINÔME (VERSION CLAIRE)
+REPARTITION BINOME (COLLABORATION MIXTE)
 
-PERSONNE A — FRONTEND / SEO / DESIGN
-Responsabilité : tout ce que l’utilisateur voit
+Binôme :
+- Cindy
+- Clarita
 
-Tâches :
-1. Création des pages
-- Page Accueil
-- Page liste des articles
-- Page détail article
+OBJECTIF :
+Chaque personne travaille à la fois sur le FrontOffice ET le BackOffice.
+On partage par fonctionnalités.
 
-2. Développement FrontOffice
-- HTML / CSS / JS
-- Navigation (menu, liens)
-- Responsive (mobile / desktop)
+--------------------------------------------------
+CINDY
+--------------------------------------------------
 
-3. Affichage des données
-- Afficher les articles (au début avec données fake)
-- Puis connecter avec backend
+FRONT (VISIBLE)
+- Page Accueil → Cindy
+- Liste des articles → Cindy
+- Design (CSS, responsive) → Cindy
+- SEO (h1, meta, alt images) → Cindy
 
-4. SEO
-- Balises h1 à h6
-- Title + meta description
-- URL propre (avec aide de B)
-- Alt images
+BACK (LOGIQUE)
+- CRUD : Ajouter article → Cindy
+- CRUD : Afficher article → Cindy
+- Base de données (table articles - participation) → Cindy
+- API : lecture des articles → Cindy
 
-5. Design / UI
-- Couleurs
-- Mise en page
-- Expérience utilisateur
+--------------------------------------------------
+CLARITA
+--------------------------------------------------
 
-6. Tests
-- Lighthouse (mobile + desktop)
-- Optimisation performance
+FRONT (VISIBLE)
+- Page détail article → Clarita
+- Navigation (menu, liens) → Clarita
+- Amélioration UI/UX → Clarita
 
-Résumé :
-Personne A = site visible + design + SEO
+BACK (LOGIQUE)
+- CRUD : Modifier article → Clarita
+- CRUD : Supprimer article → Clarita
+- Authentification (login admin) → Clarita
+- Backoffice (gestion admin) → Clarita
+- Docker → Clarita
+- Git (repo, organisation) → Clarita
 
-
-PERSONNE B — BACKEND / BASE / DEVOPS
-Responsabilité : faire fonctionner le site
-
-Tâches :
-1. Base de données
-- Table articles
-- Table utilisateurs
-
-2. Backend / API
-- CRUD articles :
-  - créer
-  - lire
-  - modifier
-  - supprimer
-
-3. BackOffice (admin)
-- Page login
-- Gestion des articles
-
-4. Authentification
-- Login / mot de passe
-- Protection du backoffice
-
-5. Liaison avec frontend
-- Fournir les données (API)
-- Permettre à A de récupérer les articles
-
-6. Docker
-- docker-compose (app + base)
-- projet fonctionnel
-
-7. Git
-- créer repo
-- organiser projet
-- README
-
-Résumé :
-Personne B = logique + base de données + fonctionnement
-
-
+--------------------------------------------------
 TRAVAIL ENSEMBLE
+--------------------------------------------------
 
-Connexion finale :
-- A affiche les articles
-- B fournit les articles
+- Connexion Front ↔ Back → Cindy & Clarita
+- Tests du site complet → Cindy & Clarita
 
-Documentation :
-- A → captures FrontOffice
-- B → captures BackOffice + MCD
-- Les deux → rédaction
+DOCUMENTATION
+- Captures FrontOffice → Cindy
+- Captures BackOffice + MCD → Clarita
+- Rédaction finale → Cindy & Clarita
 
+--------------------------------------------------
+VERSION SIMPLE
+--------------------------------------------------
 
-VERSION ULTRA SIMPLE
-- A = le site (ce qu’on voit)
-- B = le moteur (ce qui fonctionne)
+Cindy et Clarita font tous les deux :
+- du Front (interface)
+- du Back (logique)
 
-CONSEIL FINAL
-- B commence la base + API
-- A commence avec contenu fake
-- Puis connexion
+Répartition :
+- Cindy : création + affichage
+- Clarita : modification + gestion
