@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,6 +70,18 @@ public class AdminController {
                 .limit(5)
                 .collect(Collectors.toList());
         model.addAttribute("recentArticles", recentArticles);
+
+        // Formatter pour les dates
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        // Créer une Map pour les dates formatées
+        Map<Integer, String> formattedDates = recentArticles.stream()
+                .filter(article -> article.getCreatedAt() != null)
+                .collect(Collectors.toMap(
+                    Article::getId,
+                    article -> article.getCreatedAt().format(formatter)
+                ));
+        model.addAttribute("formattedDates", formattedDates);
 
         // Données pour les graphiques (JSON)
         model.addAttribute("statusData",

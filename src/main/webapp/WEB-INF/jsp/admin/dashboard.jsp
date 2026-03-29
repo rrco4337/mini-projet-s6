@@ -309,7 +309,7 @@
                     </h6>
                     <small class="text-muted">
                       <i class="bi bi-calendar me-1"></i>
-                      <fmt:formatDate value="${article.createdAt.toInstant()}" pattern="dd/MM/yyyy HH:mm" />
+                      ${formattedDates[article.id]}
                     </small>
                   </div>
                   <span class="badge ${article.statut == 'publie' ? 'bg-success' : (article.statut == 'brouillon' ? 'bg-warning' : 'bg-secondary')}">
