@@ -36,15 +36,40 @@
 <div class="flex min-h-screen">
   <aside class="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-slate-200 bg-white/95 px-6 py-7 backdrop-blur xl:block">
     <a href="/admin" class="flex items-center gap-3">
-      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white">IW</div>
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 10-8.038 0l-2.387.477a2 2 0 00-1.021.547M6 19h12"/></svg>
+      </div>
       <div><p class="text-sm text-slate-500">Backoffice</p><p class="text-lg font-semibold text-slate-900">Iran War News</p></div>
     </a>
     <nav class="mt-10 space-y-1">
-      <a href="/admin" class="rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 block">Dashboard</a>
-      <a href="/admin/articles" class="rounded-xl bg-blue-50 px-4 py-3 font-semibold text-blue-700 block">Articles</a>
-      <a href="/categories" class="rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 block">Categories</a>
-      <a href="#" class="rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100 block">Utilisateurs</a>
-      <a href="#" class="rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100 block">Parametres</a>
+      <a href="/admin" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M3 13h8V3H3v10zm10 8h8V11h-8v10zM3 21h8v-6H3v6zm10-10h8V3h-8v8z"/></svg>
+        Dashboard
+      </a>
+      <a href="/admin/articles" class="flex items-center gap-3 rounded-xl bg-blue-50 px-4 py-3 font-semibold text-blue-700">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19 21H7a2 2 0 01-2-2V5a2 2 0 012-2h12m0 18a2 2 0 002-2V5a2 2 0 00-2-2m0 18h-7m-3-8h6m-6-4h8m-8 8h8"/></svg>
+        Articles
+      </a>
+      <a href="/admin/articles/drafts" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M12 20h9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+        Brouillons
+      </a>
+      <a href="/admin/articles/archives" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M20.54 5.23l-1.39-1.68A2 2 0 0017.61 3H6.39a2 2 0 00-1.54.55L3.46 5.23A2 2 0 003 6.52V8a1 1 0 001 1h16a1 1 0 001-1V6.52a2 2 0 00-.46-1.29z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M5 9v9a2 2 0 002 2h10a2 2 0 002-2V9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M10 13h4"/></svg>
+        Archives
+      </a>
+      <a href="/categories" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+        Categories
+      </a>
+      <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M17 20h5V4H2v16h5m10 0v-2a4 4 0 00-4-4H11a4 4 0 00-4 4v2m10 0H7m10-10a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        Utilisateurs
+      </a>
+      <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M10.325 4.317a1 1 0 011.35-.936l1.612.658a1 1 0 00.948-.086l1.427-.96a1 1 0 011.48.617l.36 1.675a1 1 0 00.688.75l1.636.498a1 1 0 01.63 1.472l-.83 1.495a1 1 0 000 .972l.83 1.495a1 1 0 01-.63 1.472l-1.636.498a1 1 0 00-.688.75l-.36 1.675a1 1 0 01-1.48.617l-1.427-.96a1 1 0 00-.948-.086l-1.612.658a1 1 0 01-1.35-.936l-.11-1.71a1 1 0 00-.552-.812l-1.53-.765a1 1 0 010-1.788l1.53-.765a1 1 0 00.553-.812l.109-1.71z"/></svg>
+        Parametres
+      </a>
     </nav>
   </aside>
 
@@ -153,12 +178,25 @@
             <div class="grid gap-4 md:grid-cols-2">
               <div>
                 <label for="categorieIds" class="mb-2 block text-sm font-semibold text-slate-700">Categories</label>
-                <form:select path="categorieIds" id="categorieIds" multiple="true" cssClass="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm outline-none transition focus:border-blue-300 focus:bg-white">
-                  <c:forEach items="${categories}" var="cat">
-                    <form:option value="${cat.id}">${cat.nom}</form:option>
-                  </c:forEach>
-                </form:select>
-                <p class="mt-1 text-xs text-slate-500">Maintenir Ctrl (ou Cmd sur Mac) pour selection multiple.</p>
+                <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3 transition focus-within:border-blue-300 focus-within:bg-white">
+                  <form:select path="categorieIds" id="categorieIds" multiple="true" cssClass="hidden">
+                    <c:forEach items="${categories}" var="cat">
+                      <form:option value="${cat.id}">${cat.nom}</form:option>
+                    </c:forEach>
+                  </form:select>
+                  <div id="categorieChips" class="flex flex-wrap gap-2" role="group" aria-label="Selection des categories">
+                    <c:forEach items="${categories}" var="cat">
+                      <button
+                        type="button"
+                        class="category-chip inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition duration-150 hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                        data-category-id="${cat.id}"
+                        aria-pressed="false">
+                        <c:out value="${cat.nom}" />
+                      </button>
+                    </c:forEach>
+                  </div>
+                </div>
+                <p class="mt-1 text-xs text-slate-500">Cliquez sur les tags pour ajouter ou retirer des categories.</p>
               </div>
 
               <div>
@@ -241,6 +279,44 @@
 
     slugInput.addEventListener('input', function() {
       this.dataset.autoGenerated = 'false';
+    });
+  }
+
+  const categoriesSelect = document.getElementById('categorieIds');
+  const chipsContainer = document.getElementById('categorieChips');
+
+  function setChipState(chip, selected) {
+    chip.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    chip.classList.toggle('bg-blue-600', selected);
+    chip.classList.toggle('border-blue-600', selected);
+    chip.classList.toggle('text-white', selected);
+    chip.classList.toggle('shadow-sm', selected);
+
+    chip.classList.toggle('bg-white', !selected);
+    chip.classList.toggle('border-slate-300', !selected);
+    chip.classList.toggle('text-slate-700', !selected);
+  }
+
+  function isOptionSelected(selectEl, optionValue) {
+    return Array.from(selectEl.options).some((opt) => String(opt.value) === String(optionValue) && opt.selected);
+  }
+
+  if (categoriesSelect && chipsContainer) {
+    const chips = Array.from(chipsContainer.querySelectorAll('.category-chip'));
+
+    chips.forEach((chip) => {
+      const categoryId = chip.dataset.categoryId;
+      setChipState(chip, isOptionSelected(categoriesSelect, categoryId));
+
+      chip.addEventListener('click', () => {
+        const option = Array.from(categoriesSelect.options).find((opt) => String(opt.value) === String(categoryId));
+        if (!option) {
+          return;
+        }
+
+        option.selected = !option.selected;
+        setChipState(chip, option.selected);
+      });
     });
   }
 </script>

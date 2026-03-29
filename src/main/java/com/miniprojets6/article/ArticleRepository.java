@@ -19,6 +19,10 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
     List<Article> findByStatutOrderByDatePublicationDesc(ArticleStatut statut);
 
+    List<Article> findByStatutOrderByUpdatedAtDesc(ArticleStatut statut);
+
+    List<Article> findByStatutNotOrderByUpdatedAtDesc(ArticleStatut statut);
+
     @Query("""
                     SELECT DISTINCT a FROM Article a
                     LEFT JOIN a.categories c

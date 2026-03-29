@@ -35,6 +35,8 @@
     <nav class="mt-10 space-y-1">
       <a href="/admin" class="rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 block">Dashboard</a>
       <a href="/admin/articles" class="rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 block">Articles</a>
+      <a href="/admin/articles/drafts" class="rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 block">Brouillons</a>
+      <a href="/admin/articles/archives" class="rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 block">Archives</a>
       <a href="/categories" class="rounded-xl bg-blue-50 px-4 py-3 font-semibold text-blue-700 block">Categories</a>
       <a href="#" class="rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100 block">Utilisateurs</a>
       <a href="#" class="rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100 block">Parametres</a>

@@ -5,9 +5,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gestion des articles - BackOffice</title>
-  <meta name="description" content="Page backoffice de gestion des articles Iran War News." />
-  <meta name="keywords" content="gestion articles, administration, iran war news" />
+  <title>Archives - BackOffice</title>
+  <meta name="description" content="Page backoffice des articles archives Iran War News." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,29 +22,22 @@
       }
     };
   </script>
-  <style>
-    body {
-      background:
-        radial-gradient(circle at 8% 12%, rgba(37, 99, 235, 0.08), transparent 30%),
-        #f6f8fb;
-    }
-  </style>
 </head>
-<body class="min-h-screen font-sans text-slate-800">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800">
 <div class="flex min-h-screen">
   <aside class="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-slate-200 bg-white/95 px-6 py-7 backdrop-blur xl:block">
     <a href="/admin" class="flex items-center gap-3">
       <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white">
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 10-8.038 0l-2.387.477a2 2 0 00-1.021.547M6 19h12"/></svg>
       </div>
-      <div><p class="text-sm font-medium text-slate-500">Backoffice</p><p class="text-lg font-semibold text-slate-900">Iran War News</p></div>
+      <div><p class="text-sm text-slate-500">Backoffice</p><p class="text-lg font-semibold text-slate-900">Iran War News</p></div>
     </a>
     <nav class="mt-10 space-y-1">
       <a href="/admin" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M3 13h8V3H3v10zm10 8h8V11h-8v10zM3 21h8v-6H3v6zm10-10h8V3h-8v8z"/></svg>
         Dashboard
       </a>
-      <a href="/admin/articles" class="flex items-center gap-3 rounded-xl bg-blue-50 px-4 py-3 font-semibold text-blue-700">
+      <a href="/admin/articles" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19 21H7a2 2 0 01-2-2V5a2 2 0 012-2h12m0 18a2 2 0 002-2V5a2 2 0 00-2-2m0 18h-7m-3-8h6m-6-4h8m-8 8h8"/></svg>
         Articles
       </a>
@@ -53,7 +45,7 @@
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M12 20h9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
         Brouillons
       </a>
-      <a href="/admin/articles/archives" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+      <a href="/admin/articles/archives" class="flex items-center gap-3 rounded-xl bg-blue-50 px-4 py-3 font-semibold text-blue-700">
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M20.54 5.23l-1.39-1.68A2 2 0 0017.61 3H6.39a2 2 0 00-1.54.55L3.46 5.23A2 2 0 003 6.52V8a1 1 0 001 1h16a1 1 0 001-1V6.52a2 2 0 00-.46-1.29z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M5 9v9a2 2 0 002 2h10a2 2 0 002-2V9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M10 13h4"/></svg>
         Archives
       </a>
@@ -76,10 +68,11 @@
     <header class="sticky top-0 z-20 border-b border-slate-200/70 bg-white/85 backdrop-blur">
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <div class="relative w-full max-w-xl">
-          <input type="search" placeholder="Rechercher dans les articles..." class="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-blue-300 focus:bg-white" />
+          <input type="search" placeholder="Rechercher dans les archives..." class="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 text-sm outline-none transition focus:border-blue-300 focus:bg-white" />
         </div>
         <div class="flex items-center gap-3">
-          <a href="/" target="_blank" class="hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 md:inline-flex">Voir le site</a>
+          <a href="/admin/articles/drafts" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">Brouillons</a>
+          <a href="/admin/articles" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">Tous les articles</a>
           <a href="/logout" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">Deconnexion</a>
         </div>
       </div>
@@ -88,13 +81,8 @@
     <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <section class="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 class="text-3xl font-bold tracking-tight text-slate-900">Gestion des articles</h1>
-          <p class="mt-2 text-sm text-slate-600">Consultez, editez et supprimez les contenus publies ou en brouillon.</p>
-        </div>
-        <div class="flex flex-wrap items-center gap-2">
-          <a href="/admin/articles/drafts" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Voir les brouillons</a>
-          <a href="/admin/articles/archives" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Voir les archives</a>
-          <a href="/admin/articles/new" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">Ajouter un article</a>
+          <h1 class="text-3xl font-bold tracking-tight text-slate-900">Articles archives</h1>
+          <p class="mt-2 text-sm text-slate-600">Consultez les articles masques et restaurez-les si necessaire.</p>
         </div>
       </section>
 
@@ -113,8 +101,6 @@
                 <th class="px-5 py-4">ID</th>
                 <th class="px-5 py-4">Titre</th>
                 <th class="px-5 py-4">Categorie</th>
-                <th class="px-5 py-4">Statut</th>
-                <th class="px-5 py-4">A la une</th>
                 <th class="px-5 py-4">Vues</th>
                 <th class="px-5 py-4 text-right">Actions</th>
               </tr>
@@ -142,33 +128,14 @@
                       </c:if>
                     </div>
                   </td>
-                  <td class="px-5 py-4">
-                    <c:choose>
-                      <c:when test="${article.statut == 'publie'}">
-                        <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">Publie</span>
-                      </c:when>
-                      <c:when test="${article.statut == 'brouillon'}">
-                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">Brouillon</span>
-                      </c:when>
-                      <c:otherwise>
-                        <span class="rounded-full bg-slate-200 px-3 py-1 text-xs font-semibold text-slate-700">Archive</span>
-                      </c:otherwise>
-                    </c:choose>
-                  </td>
-                  <td class="px-5 py-4 text-lg">
-                    <c:if test="${article.ALaUne}">★</c:if>
-                    <c:if test="${!article.ALaUne}"><span class="text-slate-300">☆</span></c:if>
-                  </td>
                   <td class="px-5 py-4 font-semibold text-slate-700">${article.vues}</td>
                   <td class="px-5 py-4 text-right">
                     <div class="inline-flex items-center gap-2">
-                      <a href="/article/${article.slug}" target="_blank" class="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-100" title="Voir">Voir</a>
-                      <a href="/admin/articles/${article.id}/edit" class="rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 transition hover:bg-blue-100" title="Modifier">Modifier</a>
-                      <form action="/admin/articles/${article.id}/archive" method="post" class="inline" onsubmit="return confirm('Archiver cet article ?');">
-                        <button type="submit" class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700 transition hover:bg-amber-100" title="Archiver">Archiver</button>
+                      <form action="/admin/articles/${article.id}/restore" method="post" class="inline" onsubmit="return confirm('Restaurer cet article en brouillon ?');">
+                        <button type="submit" class="rounded-lg border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 transition hover:bg-blue-100">Restaurer</button>
                       </form>
-                      <form action="/admin/articles/${article.id}/delete" method="post" class="inline" onsubmit="return confirm('Supprimer cet article ?');">
-                        <button type="submit" class="rounded-lg border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition hover:bg-rose-100" title="Supprimer">Supprimer</button>
+                      <form action="/admin/articles/${article.id}/delete" method="post" class="inline" onsubmit="return confirm('Supprimer definitivement cet article ?');">
+                        <button type="submit" class="rounded-lg border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 transition hover:bg-rose-100">Supprimer</button>
                       </form>
                     </div>
                   </td>
@@ -176,17 +143,13 @@
               </c:forEach>
               <c:if test="${empty articles}">
                 <tr>
-                  <td colspan="7" class="px-6 py-14 text-center text-sm text-slate-500">Aucun article disponible.</td>
+                  <td colspan="5" class="px-6 py-14 text-center text-sm text-slate-500">Aucun article archive.</td>
                 </tr>
               </c:if>
             </tbody>
           </table>
         </div>
       </section>
-
-      <div class="mt-6">
-        <a href="/admin" class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">Retour au tableau de bord</a>
-      </div>
     </main>
   </div>
 </div>

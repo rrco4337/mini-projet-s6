@@ -39,6 +39,27 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
+    public List<Article> findAllActive() {
+        List<Article> articles = articleRepository.findByStatutNotOrderByUpdatedAtDesc(ArticleStatut.archive);
+        articles.forEach(this::enrichPrimaryImage);
+        return articles;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Article> findAllDrafts() {
+        List<Article> articles = articleRepository.findByStatutOrderByUpdatedAtDesc(ArticleStatut.brouillon);
+        articles.forEach(this::enrichPrimaryImage);
+        return articles;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Article> findAllArchived() {
+        List<Article> articles = articleRepository.findByStatutOrderByUpdatedAtDesc(ArticleStatut.archive);
+        articles.forEach(this::enrichPrimaryImage);
+        return articles;
+    }
+
+    @Transactional(readOnly = true)
     public Article findById(Integer id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Article non trouve: " + id));
@@ -177,6 +198,21 @@ public class ArticleService {
     public void delete(Integer id) {
         Article article = findById(id);
         articleRepository.delete(article);
+    }
+
+    @Transactional
+    public void archive(Integer id) {
+        Article article = findById(id);
+        article.setStatut(ArticleStatut.archive);
+        article.setALaUne(false);
+        articleRepository.save(article);
+    }
+
+    @Transactional
+    public void restoreFromArchive(Integer id) {
+        Article article = findById(id);
+        article.setStatut(ArticleStatut.brouillon);
+        articleRepository.save(article);
     }
 
     private void mapFormToEntity(ArticleForm form, Article article) {
