@@ -1,73 +1,58 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<footer class="bg-dark text-white py-4 mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3 mb-md-0">
-        <h5><i class="bi bi-newspaper me-2"></i>Iran War News</h5>
-        <p class="text-muted small">Informations et analyses sur le conflit en Iran.</p>
+<footer class="mt-16 border-t border-stone bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="font-serif text-2xl font-bold tracking-tight">Iran War News</h3>
+        <p class="mt-3 text-sm leading-relaxed text-gray-600">Informations et analyses sur le conflit en Iran, dans une mise en perspective editoriale sobre et exigeante.</p>
       </div>
-      <div class="col-md-4 mb-3 mb-md-0">
-        <h6>Categories</h6>
-        <ul class="list-unstyled small">
-          <c:forEach items="${navCategories}" var="cat" end="4">
-            <li><a href="/categorie/${cat.slug}" class="text-muted text-decoration-none"><c:out value="${cat.nom}" /></a></li>
+
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-500">Categories</h4>
+        <ul class="mt-3 space-y-2 text-sm">
+          <c:forEach items="${navCategories}" var="cat" end="5">
+            <li><a href="/categorie/${cat.slug}" class="text-gray-700 hover:text-ink transition-colors"><c:out value="${cat.nom}" /></a></li>
           </c:forEach>
         </ul>
       </div>
-      <div class="col-md-4">
-        <h6>Navigation</h6>
-        <ul class="list-unstyled small">
-          <li><a href="/" class="text-muted text-decoration-none">Accueil</a></li>
-          <li><a href="/admin" class="text-muted text-decoration-none">Administration</a></li>
+
+      <div>
+        <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-500">Navigation</h4>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/" class="text-gray-700 hover:text-ink transition-colors">Accueil</a></li>
+          <li><a href="/admin" class="text-gray-700 hover:text-ink transition-colors">Administration</a></li>
         </ul>
       </div>
     </div>
-    <hr class="my-3" />
-    <p class="text-center text-muted mb-0 small">&copy; 2026 Iran War News. Tous droits reserves.</p>
+
+    <div class="mt-8 pt-4 border-t border-stone text-xs text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <p>&copy; 2026 Iran War News</p>
+      <p>Tous droits reserves</p>
+    </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<button class="scroll-top" id="scrollTop" title="Retour en haut">
-  <i class="bi bi-arrow-up"></i>
+<button id="scrollTop" title="Retour en haut" class="fixed bottom-6 right-6 hidden items-center justify-center w-11 h-11 rounded-full border border-stone bg-white shadow-editorial text-gray-600 hover:text-ink hover:-translate-y-0.5 transition-all">
+  ↑
 </button>
 
 <script>
-  // Scroll to top button
   const scrollTopBtn = document.getElementById('scrollTop');
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', function () {
     if (window.scrollY > 300) {
-      scrollTopBtn.classList.add('visible');
+      scrollTopBtn.classList.remove('hidden');
+      scrollTopBtn.classList.add('flex');
     } else {
-      scrollTopBtn.classList.remove('visible');
+      scrollTopBtn.classList.add('hidden');
+      scrollTopBtn.classList.remove('flex');
     }
   });
 
-  scrollTopBtn.addEventListener('click', () => {
+  scrollTopBtn.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // Animate elements on scroll
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-slideUp');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.card, article').forEach(el => {
-    observer.observe(el);
   });
 </script>
 </body>

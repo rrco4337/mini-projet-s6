@@ -67,10 +67,15 @@
                 <br><small class="text-muted">${article.slug}</small>
               </td>
               <td>
-                <c:if test="${article.categorie != null}">
+                <c:if test="${not empty article.categories}">
+                  <c:forEach items="${article.categories}" var="cat">
+                    <span class="badge bg-secondary me-1"><c:out value="${cat.nom}" /></span>
+                  </c:forEach>
+                </c:if>
+                <c:if test="${empty article.categories and article.categorie != null}">
                   <span class="badge bg-secondary"><c:out value="${article.categorie.nom}" /></span>
                 </c:if>
-                <c:if test="${article.categorie == null}">
+                <c:if test="${empty article.categories and article.categorie == null}">
                   <span class="text-muted">-</span>
                 </c:if>
               </td>

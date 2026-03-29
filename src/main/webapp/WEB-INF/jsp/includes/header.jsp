@@ -13,44 +13,88 @@
     <meta name="keywords" content="<c:out value="${metaKeywords}" />" />
   </c:if>
   <meta name="robots" content="<c:out value="${metaRobots}" default="index, follow" />" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body class="bg-light">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#111111',
+            paper: '#fafaf9',
+            stone: '#e7e5e4',
+            accent: '#4a5568'
+          },
+          fontFamily: {
+            sans: ['Source Sans 3', 'ui-sans-serif', 'sans-serif'],
+            serif: ['Playfair Display', 'ui-serif', 'serif']
+          },
+          boxShadow: {
+            editorial: '0 12px 32px rgba(0, 0, 0, 0.08)'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .article-content h2,
+    .article-content h3,
+    .article-content h4 {
+      font-family: 'Playfair Display', ui-serif, serif;
+      margin-top: 1.6rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.25;
+      color: #111111;
+    }
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <i class="bi bi-newspaper me-2"></i>Iran War News
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/"><i class="bi bi-house me-1"></i>Accueil</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            <i class="bi bi-folder me-1"></i>Categories
-          </a>
-          <ul class="dropdown-menu">
-            <c:forEach items="${navCategories}" var="cat">
-              <li><a class="dropdown-item" href="/categorie/${cat.slug}"><c:out value="${cat.nom}" /></a></li>
-            </c:forEach>
-            <c:if test="${empty navCategories}">
-              <li><span class="dropdown-item text-muted">Aucune categorie</span></li>
-            </c:if>
-          </ul>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/admin"><i class="bi bi-gear me-1"></i>Admin</a>
-        </li>
-      </ul>
+    .article-content p {
+      margin-top: 0.9rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .article-content a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      color: #1f2937;
+      transition: color 0.2s ease;
+    }
+
+    .article-content a:hover {
+      color: #111111;
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink font-sans antialiased">
+
+<header class="border-b border-stone bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex flex-col gap-3 lg:gap-4">
+      <div class="flex items-end justify-between gap-4">
+        <a href="/" class="group inline-flex flex-col leading-none">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-gray-500">Edition Internationale</span>
+          <span class="font-serif text-3xl sm:text-4xl font-bold tracking-tight group-hover:text-accent transition-colors">Iran War News</span>
+        </a>
+        <a href="/admin" class="text-sm font-semibold uppercase tracking-widest text-gray-600 hover:text-ink transition-colors">Administration</a>
+      </div>
+
+      <div class="h-px bg-gradient-to-r from-transparent via-stone to-transparent"></div>
+
+      <nav class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] sm:text-sm">
+        <a href="/" class="font-semibold text-ink hover:text-accent transition-colors">Accueil</a>
+        <span class="text-gray-300">|</span>
+        <c:forEach items="${navCategories}" var="cat" varStatus="status">
+          <a href="/?categorySlugs=${cat.slug}" class="text-gray-600 hover:text-ink transition-colors"><c:out value="${cat.nom}" /></a>
+          <c:if test="${!status.last}">
+            <span class="text-gray-300">|</span>
+          </c:if>
+        </c:forEach>
+        <c:if test="${empty navCategories}">
+          <span class="text-gray-500">Aucune categorie disponible</span>
+        </c:if>
+      </nav>
     </div>
+    
   </div>
-</nav>
+</header>

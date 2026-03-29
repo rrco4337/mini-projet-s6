@@ -3,6 +3,9 @@ package com.miniprojets6.article;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArticleForm {
 
     @NotBlank(message = "Le titre est obligatoire")
@@ -31,6 +34,8 @@ public class ArticleForm {
     private String metaKeywords;
 
     private Integer categorieId;
+
+    private List<Integer> categorieIds = new ArrayList<>();
 
     private ArticleStatut statut = ArticleStatut.brouillon;
 
@@ -102,11 +107,29 @@ public class ArticleForm {
     }
 
     public Integer getCategorieId() {
+        if ((categorieId == null) && categorieIds != null && !categorieIds.isEmpty()) {
+            return categorieIds.get(0);
+        }
         return categorieId;
     }
 
     public void setCategorieId(Integer categorieId) {
         this.categorieId = categorieId;
+        if (categorieId != null && (categorieIds == null || categorieIds.isEmpty())) {
+            categorieIds = new ArrayList<>();
+            categorieIds.add(categorieId);
+        }
+    }
+
+    public List<Integer> getCategorieIds() {
+        return categorieIds;
+    }
+
+    public void setCategorieIds(List<Integer> categorieIds) {
+        this.categorieIds = categorieIds;
+        if (categorieIds != null && !categorieIds.isEmpty()) {
+            this.categorieId = categorieIds.get(0);
+        }
     }
 
     public ArticleStatut getStatut() {

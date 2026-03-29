@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/admin/articles")
 public class ArticleController {
@@ -83,7 +85,11 @@ public class ArticleController {
             form.setMetaKeywords(article.getMetaKeywords());
             form.setStatut(article.getStatut());
             form.setALaUne(article.getALaUne());
-            if (article.getCategorie() != null) {
+            if (article.getCategories() != null && !article.getCategories().isEmpty()) {
+                form.setCategorieIds(article.getCategories().stream()
+                        .map(category -> category.getId())
+                        .collect(Collectors.toList()));
+            } else if (article.getCategorie() != null) {
                 form.setCategorieId(article.getCategorie().getId());
             }
 

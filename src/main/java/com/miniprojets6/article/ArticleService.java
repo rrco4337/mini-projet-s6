@@ -10,7 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleService {
@@ -50,9 +54,43 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> findPublishedByFilters(String categorySlug, LocalDate publicationDate) {
-        String normalizedCategory = (categorySlug == null || categorySlug.isBlank()) ? null : categorySlug;
-        List<Article> articles = articleRepository.findPublishedByFilters(ArticleStatut.publie, normalizedCategory, publicationDate);
+    public List<Article> findPublishedByFilters(List<String> categorySlugs, LocalDate publicationDate) {
+        List<String> normalizedCategories = (categorySlugs == null)
+                ? List.of()
+                : categorySlugs.stream()
+                .filter(slug -> slug != null && !slug.isBlank())
+                .distinct()
+                .collect(Collectors.toList());
+        OffsetDateTime startDate = null;
+        OffsetDateTime endDate = null;
+        if (publicationDate != null) {
+            startDate = publicationDate.atStartOfDay().atOffset(ZoneOffset.UTC);
+            endDate = publicationDate.plusDays(1).atStartOfDay().atOffset(ZoneOffset.UTC);
+        }
+
+        List<Article> articles;
+        if (!normalizedCategories.isEmpty() && publicationDate != null) {
+            articles = articleRepository.findPublishedByCategoriesAndDateRange(
+                    ArticleStatut.publie,
+                    normalizedCategories,
+                    startDate,
+                    endDate
+            );
+        } else if (!normalizedCategories.isEmpty()) {
+            articles = articleRepository.findPublishedByCategories(
+                    ArticleStatut.publie,
+                    normalizedCategories
+            );
+        } else if (publicationDate != null) {
+            articles = articleRepository.findPublishedByDateRange(
+                    ArticleStatut.publie,
+                    startDate,
+                    endDate
+            );
+        } else {
+            articles = articleRepository.findByStatutOrderByDatePublicationDesc(ArticleStatut.publie);
+        }
+
         articles.forEach(this::enrichPrimaryImage);
         return articles;
     }
@@ -153,11 +191,25 @@ public class ArticleService {
         article.setStatut(form.getStatut());
         article.setALaUne(form.getALaUne() != null ? form.getALaUne() : false);
 
-        if (form.getCategorieId() != null) {
-            Category category = categoryRepository.findById(form.getCategorieId())
-                    .orElseThrow(() -> new IllegalArgumentException("Categorie non trouvee"));
-            article.setCategorie(category);
+        List<Integer> selectedCategoryIds = new ArrayList<>();
+        if (form.getCategorieIds() != null) {
+            selectedCategoryIds.addAll(form.getCategorieIds());
+        }
+        if (selectedCategoryIds.isEmpty() && form.getCategorieId() != null) {
+            selectedCategoryIds.add(form.getCategorieId());
+        }
+
+        LinkedHashSet<Integer> deduplicated = new LinkedHashSet<>(selectedCategoryIds);
+        if (!deduplicated.isEmpty()) {
+            List<Category> selectedCategories = categoryRepository.findAllById(deduplicated);
+            if (selectedCategories.size() != deduplicated.size()) {
+                throw new IllegalArgumentException("Categorie non trouvee");
+            }
+
+            article.setCategories(selectedCategories);
+            article.setCategorie(selectedCategories.get(0));
         } else {
+            article.setCategories(new ArrayList<>());
             article.setCategorie(null);
         }
     }

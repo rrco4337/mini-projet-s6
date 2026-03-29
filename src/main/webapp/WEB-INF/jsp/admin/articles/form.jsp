@@ -123,13 +123,13 @@
 
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="categorieId" class="form-label">Categorie</label>
-                <form:select path="categorieId" cssClass="form-select" id="categorieId">
-                  <form:option value="">-- Aucune categorie --</form:option>
+                <label for="categorieIds" class="form-label">Categories</label>
+                <form:select path="categorieIds" cssClass="form-select" id="categorieIds" multiple="true">
                   <c:forEach items="${categories}" var="cat">
                     <form:option value="${cat.id}">${cat.nom}</form:option>
                   </c:forEach>
                 </form:select>
+                <small class="text-muted">Maintenir Ctrl (ou Cmd sur Mac) pour selectionner plusieurs categories.</small>
               </div>
 
               <div class="col-md-6 mb-3">

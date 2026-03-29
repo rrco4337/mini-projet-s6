@@ -57,6 +57,14 @@ public class Article {
     @JoinColumn(name = "categorie_id")
     private Category categorie;
 
+        @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(
+            name = "article_categories",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+        )
+        private List<Category> categories = new ArrayList<>();
+
     @Column(name = "auteur_id")
     private Integer auteurId;
 
@@ -198,11 +206,29 @@ public class Article {
     }
 
     public Category getCategorie() {
+        if (categories != null && !categories.isEmpty()) {
+            return categories.get(0);
+        }
         return categorie;
     }
 
     public void setCategorie(Category categorie) {
         this.categorie = categorie;
+        if (categorie != null && (categories == null || categories.isEmpty())) {
+            categories = new ArrayList<>();
+            categories.add(categorie);
+        }
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+        if (categories != null && !categories.isEmpty()) {
+            this.categorie = categories.get(0);
+        }
     }
 
     public Integer getAuteurId() {
