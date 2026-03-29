@@ -174,15 +174,15 @@
             <div class="mt-6 space-y-4">
               <div>
                 <div class="mb-2 flex items-center justify-between text-sm font-medium text-slate-600"><span>Publies</span><span>${publishedCount}/${totalArticles}</span></div>
-                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-blue-600" style="width: ${totalArticles > 0 ? (publishedCount * 100 / totalArticles) : 0}%"></div></div>
+                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-blue-600" data-width="${totalArticles > 0 ? (publishedCount * 100 / totalArticles) : 0}%"></div></div>
               </div>
               <div>
                 <div class="mb-2 flex items-center justify-between text-sm font-medium text-slate-600"><span>Brouillons</span><span>${draftCount}/${totalArticles}</span></div>
-                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-slate-500" style="width: ${totalArticles > 0 ? (draftCount * 100 / totalArticles) : 0}%"></div></div>
+                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-slate-500" data-width="${totalArticles > 0 ? (draftCount * 100 / totalArticles) : 0}%"></div></div>
               </div>
               <div>
                 <div class="mb-2 flex items-center justify-between text-sm font-medium text-slate-600"><span>Archives</span><span>${archivedCount}/${totalArticles}</span></div>
-                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-slate-300" style="width: ${totalArticles > 0 ? (archivedCount * 100 / totalArticles) : 0}%"></div></div>
+                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-slate-300" data-width="${totalArticles > 0 ? (archivedCount * 100 / totalArticles) : 0}%"></div></div>
               </div>
             </div>
           </article>
@@ -252,14 +252,15 @@
 
   <script>
     const ctx = document.getElementById('statusChart').getContext('2d');
-    const statusData = ${statusData};
+    const rawStatusData = '<c:out value="${statusData}" />';
+    const chartStatusData = JSON.parse(rawStatusData);
 
     new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: ['Publies', 'Brouillons', 'Archives'],
         datasets: [{
-          data: statusData,
+          data: chartStatusData,
           backgroundColor: ['#2563eb', '#64748b', '#cbd5e1'],
           borderColor: '#ffffff',
           borderWidth: 4
@@ -289,7 +290,7 @@
 
     setTimeout(() => {
       document.querySelectorAll('.metric-fill').forEach((item) => {
-        const finalWidth = item.style.width;
+        const finalWidth = item.getAttribute('data-width') || '0%';
         item.style.width = '0%';
         requestAnimationFrame(() => {
           item.style.width = finalWidth;
