@@ -1,0 +1,189 @@
+# Iran War News - .gitignore
+
+## Compiled class files
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+## Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+## Spring Boot
+*.original
+
+## Log files
+*.log
+logs/
+spring.log
+
+## IDE
+### IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code
+.vscode/
+
+## OS
+### macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+### Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+
+### Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+## Docker
+### Build cache
+.docker/
+docker-build/
+
+### Volumes data (keep structure, ignore data)
+postgres_data/
+app_logs/
+
+## Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+config/secrets/
+secrets/
+
+## Application specific
+### Configuration sensitive
+application-local.yml
+application-prod.yml
+!application-docker.yml
+!application.yml
+
+### Media uploads
+src/main/resources/static/uploads/
+uploads/
+media/
+
+### Backup files
+*.backup
+*.sql.backup
+dump_*.sql
+
+## Temporary files
+### Java
+hs_err_pid*
+replay_pid*
+
+### Build tools
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Package managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+## Testing
+### Coverage
+.coverage
+coverage/
+*.cover
+*.py,cover
+*.lcov
+
+### Test outputs
+test-results/
+test-output/
+
+## Documentation build
+docs/_build/
+site/
+
+## Cache
+.cache/
+*.cache
+
+## Miscellaneous
+*.pid
+*.seed
+*.pid.lock
+*.tsbuildinfo
+
+# Keep important files
+!.gitignore
+!.mvn/wrapper/maven-wrapper.properties
+!docker-compose.yml
+!Dockerfile
+!start.sh
+!stop.sh
+!README.md
+!DOCUMENTATION.md
+!DEPLOYMENT.md
+!DATABASE_SCHEMA.md
