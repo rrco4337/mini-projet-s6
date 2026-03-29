@@ -26,9 +26,12 @@ INSERT INTO articles (
     'Dernières actualités sur les tensions géopolitiques en Iran et analyse des enjeux regionaux.',
     'publie',
     NOW(),
-    1,
+    (SELECT id FROM categories WHERE slug = 'politique'),
     true
 ) ON CONFLICT (slug) DO NOTHING;
+
+-- Aide debug: verifier les categories disponibles avant des inserts manuels
+-- SELECT id, nom, slug FROM categories ORDER BY id;
 
 -- Vérification des données
 SELECT 'Articles:' as table_name, count(*) as count FROM articles
