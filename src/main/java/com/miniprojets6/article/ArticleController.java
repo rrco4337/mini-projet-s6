@@ -25,8 +25,20 @@ public class ArticleController {
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("articles", articleService.findAll());
+        model.addAttribute("articles", articleService.findAllActive());
         return "admin/articles/list";
+    }
+
+    @GetMapping("/drafts")
+    public String drafts(Model model) {
+        model.addAttribute("articles", articleService.findAllDrafts());
+        return "admin/articles/drafts";
+    }
+
+    @GetMapping("/archives")
+    public String archives(Model model) {
+        model.addAttribute("articles", articleService.findAllArchived());
+        return "admin/articles/archives";
     }
 
     @GetMapping("/new")
@@ -149,5 +161,27 @@ public class ArticleController {
             redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
         }
         return "redirect:/admin/articles";
+    }
+
+    @PostMapping("/{id}/archive")
+    public String archive(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            articleService.archive(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Article archive avec succes");
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        }
+        return "redirect:/admin/articles";
+    }
+
+    @PostMapping("/{id}/restore")
+    public String restore(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            articleService.restoreFromArchive(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Article restaure en brouillon");
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        }
+        return "redirect:/admin/articles/archives";
     }
 }

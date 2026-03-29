@@ -5,537 +5,306 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tableau de bord - Iran War News</title>
-  <meta name="description" content="Tableau de bord backoffice pour la gestion editoriale Iran War News." />
-  <meta name="keywords" content="backoffice, dashboard admin, iran war news" />
-  <meta name="robots" content="noindex, nofollow" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    .dashboard-header {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      color: white;
-      border-radius: 15px;
-      margin-bottom: 2rem;
-    }
-
-    .stats-card {
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .stats-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-
-    .stats-card-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .stats-card-success { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-    .stats-card-warning { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-    .stats-card-info { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-    .stats-card-danger { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-
-    .stats-card .card-body {
-      position: relative;
-      z-index: 2;
-      color: white;
-    }
-
-    .stats-icon {
-      position: absolute;
-      right: 15px;
-      top: 15px;
-      font-size: 3rem;
-      opacity: 0.3;
-    }
-
-    .stats-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0;
-    }
-
-    .stats-label {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-bottom: 0;
-    }
-
-    .chart-container {
-      position: relative;
-      height: 300px;
-      margin-bottom: 2rem;
-    }
-
-    .activity-item {
-      border-left: 4px solid #e94560;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: #f8f9fa;
-      border-radius: 0 10px 10px 0;
-      transition: all 0.3s ease;
-    }
-
-    .activity-item:hover {
-      background: #e3f2fd;
-      transform: translateX(5px);
-    }
-
-    .performance-meter {
-      height: 8px;
-      background: #e9ecef;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .performance-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-      transition: width 1.5s ease-in-out;
-      border-radius: 10px;
-    }
-
-    .quick-action-btn {
-      border-radius: 12px;
-      padding: 1rem;
-      border: none;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: block;
-    }
-
-    .quick-action-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      color: white;
-    }
-
-    .welcome-text {
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
+  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+  <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+  <!DOCTYPE html>
+  <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tableau de bord - Iran War News</title>
+    <meta name="description" content="Tableau de bord backoffice pour la gestion editoriale Iran War News." />
+    <meta name="keywords" content="backoffice, dashboard admin, iran war news" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'sans-serif']
+            },
+            colors: {
+              ink: '#111827',
+              paper: '#f6f8fb',
+              accent: '#2563eb'
+            },
+            boxShadow: {
+              soft: '0 10px 30px rgba(15, 23, 42, 0.08)'
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        background:
+          radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.08), transparent 38%),
+          radial-gradient(circle at 85% 0%, rgba(30, 64, 175, 0.08), transparent 30%),
+          #f6f8fb;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .metric-fill {
+        transition: width 1.2s ease;
       }
-    }
-
-    .animate-card {
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    .animate-card:nth-child(1) { animation-delay: 0.1s; }
-    .animate-card:nth-child(2) { animation-delay: 0.2s; }
-    .animate-card:nth-child(3) { animation-delay: 0.3s; }
-    .animate-card:nth-child(4) { animation-delay: 0.4s; }
-    .animate-card:nth-child(5) { animation-delay: 0.5s; }
-  </style>
-</head>
-<body class="bg-light">
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="/admin">
-      <i class="bi bi-shield-check me-2"></i>BackOffice
-    </a>
-    <div class="navbar-nav ms-auto">
-      <a class="nav-link" href="/" target="_blank">
-        <i class="bi bi-box-arrow-up-right me-1"></i>Voir le site
+    </style>
+  </head>
+  <body class="min-h-screen font-sans text-slate-800">
+  <div class="flex min-h-screen">
+    <aside class="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-slate-200 bg-white/95 px-6 py-7 backdrop-blur xl:block">
+      <a href="/admin" class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 10-8.038 0l-2.387.477a2 2 0 00-1.021.547M6 19h12"/></svg>
+        </div>
+        <div>
+          <p class="text-sm font-medium tracking-wide text-slate-500">Backoffice</p>
+          <p class="text-lg font-semibold text-slate-900">Iran War News</p>
+        </div>
       </a>
-      <a class="nav-link" href="/logout">
-        <i class="bi bi-box-arrow-right me-1"></i>Déconnexion
-      </a>
-    </div>
-  </div>
-</nav>
 
-<div class="container py-4">
-  <!-- Header -->
-  <div class="dashboard-header p-4 text-center">
-    <h1 class="h2 mb-3">
-      <i class="bi bi-speedometer2 me-3"></i>
-      Tableau de bord Iran War News
-    </h1>
-    <p class="welcome-text mb-0">
-      Bienvenue dans votre espace d'administration. Gérez efficacement votre contenu éditorial.
-    </p>
-  </div>
+      <nav class="mt-10 space-y-1">
+        <a href="/admin" class="flex items-center gap-3 rounded-xl bg-blue-50 px-4 py-3 font-semibold text-blue-700">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M3 13h8V3H3v10zm10 8h8V11h-8v10zM3 21h8v-6H3v6zm10-10h8V3h-8v8z"/></svg>
+          Dashboard
+        </a>
+        <a href="/admin/articles" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19 21H7a2 2 0 01-2-2V5a2 2 0 012-2h12m0 18a2 2 0 002-2V5a2 2 0 00-2-2m0 18h-7m-3-8h6m-6-4h8m-8 8h8"/></svg>
+          Articles
+        </a>
+        <a href="/admin/articles/drafts" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M12 20h9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+          Brouillons
+        </a>
+        <a href="/admin/articles/archives" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M20.54 5.23l-1.39-1.68A2 2 0 0017.61 3H6.39a2 2 0 00-1.54.55L3.46 5.23A2 2 0 003 6.52V8a1 1 0 001 1h16a1 1 0 001-1V6.52a2 2 0 00-.46-1.29z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M5 9v9a2 2 0 002 2h10a2 2 0 002-2V9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M10 13h4"/></svg>
+          Archives
+        </a>
+        <a href="/categories" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+          Categories
+        </a>
+        <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M17 20h5V4H2v16h5m10 0v-2a4 4 0 00-4-4H11a4 4 0 00-4 4v2m10 0H7m10-10a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          Utilisateurs
+        </a>
+        <a href="#" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-400 transition hover:bg-slate-100">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M10.325 4.317a1 1 0 011.35-.936l1.612.658a1 1 0 00.948-.086l1.427-.96a1 1 0 011.48.617l.36 1.675a1 1 0 00.688.75l1.636.498a1 1 0 01.63 1.472l-.83 1.495a1 1 0 000 .972l.83 1.495a1 1 0 01-.63 1.472l-1.636.498a1 1 0 00-.688.75l-.36 1.675a1 1 0 01-1.48.617l-1.427-.96a1 1 0 00-.948-.086l-1.612.658a1 1 0 01-1.35-.936l-.11-1.71a1 1 0 00-.552-.812l-1.53-.765a1 1 0 010-1.788l1.53-.765a1 1 0 00.553-.812l.109-1.71z"/></svg>
+          Parametres
+        </a>
+      </nav>
 
-  <!-- Statistiques principales -->
-  <div class="row mb-5">
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card stats-card stats-card-primary animate-card">
-        <div class="stats-icon">
-          <i class="bi bi-newspaper"></i>
-        </div>
-        <div class="card-body">
-          <div class="stats-number">${totalArticles}</div>
-          <div class="stats-label">Articles Total</div>
-        </div>
+      <div class="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+        <p class="font-semibold text-slate-800">Espace editorial</p>
+        <p class="mt-1">Publiez, structurez et suivez vos contenus depuis une interface unifiee.</p>
       </div>
-    </div>
+    </aside>
 
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card stats-card stats-card-success animate-card">
-        <div class="stats-icon">
-          <i class="bi bi-check-circle"></i>
-        </div>
-        <div class="card-body">
-          <div class="stats-number">${publishedCount}</div>
-          <div class="stats-label">Articles Publiés</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card stats-card stats-card-warning animate-card">
-        <div class="stats-icon">
-          <i class="bi bi-star-fill"></i>
-        </div>
-        <div class="card-body">
-          <div class="stats-number">${featuredCount}</div>
-          <div class="stats-label">À la une</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card stats-card stats-card-info animate-card">
-        <div class="stats-icon">
-          <i class="bi bi-eye"></i>
-        </div>
-        <div class="card-body">
-          <div class="stats-number">
-            <c:choose>
-              <c:when test="${totalViews >= 1000}">
-                <fmt:formatNumber value="${totalViews / 1000}" maxFractionDigits="1" />k
-              </c:when>
-              <c:otherwise>${totalViews}</c:otherwise>
-            </c:choose>
+    <div class="flex min-h-screen w-full flex-col xl:ml-72">
+      <header class="sticky top-0 z-20 border-b border-slate-200/70 bg-white/85 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div class="relative w-full max-w-xl">
+            <svg class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="search" placeholder="Rechercher un article, une categorie..." class="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-12 pr-4 text-sm outline-none ring-0 transition placeholder:text-slate-400 focus:border-blue-300 focus:bg-white focus:shadow-soft" />
           </div>
-          <div class="stats-label">Vues Totales</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <!-- Graphiques et analytics -->
-    <div class="col-lg-8 mb-4">
-      <div class="card shadow-sm animate-card">
-        <div class="card-header bg-transparent">
-          <h5 class="card-title mb-0">
-            <i class="bi bi-pie-chart me-2"></i>Répartition des Articles
-          </h5>
-        </div>
-        <div class="card-body">
-          <div class="chart-container">
-            <canvas id="statusChart"></canvas>
-          </div>
-
-          <div class="row mt-4">
-            <div class="col-md-4 text-center">
-              <div class="mb-3">
-                <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle" style="width: 50px; height: 50px;">
-                  <i class="bi bi-check-lg"></i>
-                </div>
+          <div class="flex items-center gap-3">
+            <a href="/" target="_blank" class="hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 md:inline-flex">Voir le site</a>
+            <button type="button" class="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-50">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              <span class="absolute right-3 top-3 h-2 w-2 rounded-full bg-blue-600"></span>
+            </button>
+            <div class="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-900 text-xs font-bold text-white">AD</div>
+              <div class="hidden sm:block">
+                <p class="text-sm font-semibold leading-none text-slate-800">Admin</p>
+                <p class="text-xs text-slate-500">Editeur en chef</p>
               </div>
-              <h6>Articles Publiés</h6>
-              <div class="performance-meter mb-2">
-                <div class="performance-fill" style="width: ${totalArticles > 0 ? (publishedCount * 100 / totalArticles) : 0}%"></div>
-              </div>
-              <small class="text-muted">${publishedCount} / ${totalArticles}</small>
             </div>
-
-            <div class="col-md-4 text-center">
-              <div class="mb-3">
-                <div class="d-inline-flex align-items-center justify-content-center bg-warning text-white rounded-circle" style="width: 50px; height: 50px;">
-                  <i class="bi bi-pencil"></i>
-                </div>
-              </div>
-              <h6>Brouillons</h6>
-              <div class="performance-meter mb-2">
-                <div class="performance-fill" style="width: ${totalArticles > 0 ? (draftCount * 100 / totalArticles) : 0}%"></div>
-              </div>
-              <small class="text-muted">${draftCount} / ${totalArticles}</small>
-            </div>
-
-            <div class="col-md-4 text-center">
-              <div class="mb-3">
-                <div class="d-inline-flex align-items-center justify-content-center bg-secondary text-white rounded-circle" style="width: 50px; height: 50px;">
-                  <i class="bi bi-archive"></i>
-                </div>
-              </div>
-              <h6>Archives</h6>
-              <div class="performance-meter mb-2">
-                <div class="performance-fill" style="width: ${totalArticles > 0 ? (archivedCount * 100 / totalArticles) : 0}%"></div>
-              </div>
-              <small class="text-muted">${archivedCount} / ${totalArticles}</small>
-            </div>
+            <a href="/logout" class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">Deconnexion</a>
           </div>
         </div>
-      </div>
-    </div>
+      </header>
 
-    <!-- Activité récente -->
-    <div class="col-lg-4 mb-4">
-      <div class="card shadow-sm animate-card">
-        <div class="card-header bg-transparent">
-          <h5 class="card-title mb-0">
-            <i class="bi bi-clock me-2"></i>Activité Récente
-          </h5>
-        </div>
-        <div class="card-body">
-          <c:if test="${not empty recentArticles}">
-            <c:forEach items="${recentArticles}" var="article" varStatus="status">
-              <div class="activity-item">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">
-                      <c:out value="${article.titre}" />
-                    </h6>
-                    <small class="text-muted">
-                      <i class="bi bi-calendar me-1"></i>
-                      <c:out value="${article.createdAt}" />
-                    </small>
+      <main class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-600">Tableau de bord editorial</p>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h1 class="text-3xl font-bold tracking-tight text-slate-900">Pilotez votre redaction</h1>
+              <p class="mt-2 text-sm text-slate-600">Vision claire sur la publication, les performances et les actions rapides.</p>
+            </div>
+            <a href="/admin/articles/new" class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Ajouter un article
+            </a>
+          </div>
+        </section>
+
+        <section class="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Articles total</p>
+            <p class="mt-3 text-3xl font-bold text-slate-900">${totalArticles}</p>
+          </article>
+          <article class="rounded-2xl border border-blue-100 bg-blue-50 p-5 shadow-soft">
+            <p class="text-xs font-semibold uppercase tracking-wide text-blue-600">Publies</p>
+            <p class="mt-3 text-3xl font-bold text-blue-900">${publishedCount}</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">A la une</p>
+            <p class="mt-3 text-3xl font-bold text-slate-900">${featuredCount}</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+            <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Vues</p>
+            <p class="mt-3 text-3xl font-bold text-slate-900">
+              <c:choose>
+                <c:when test="${totalViews >= 1000}">
+                  <fmt:formatNumber value="${totalViews / 1000}" maxFractionDigits="1" />k
+                </c:when>
+                <c:otherwise>${totalViews}</c:otherwise>
+              </c:choose>
+            </p>
+          </article>
+        </section>
+
+        <section class="mt-6 grid gap-6 xl:grid-cols-3">
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft xl:col-span-2">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold text-slate-900">Repartition des statuts</h2>
+              <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">Live</span>
+            </div>
+            <div class="mt-6 h-72">
+              <canvas id="statusChart"></canvas>
+            </div>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="mb-2 flex items-center justify-between text-sm font-medium text-slate-600"><span>Publies</span><span>${publishedCount}/${totalArticles}</span></div>
+                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-blue-600" data-width="${totalArticles > 0 ? (publishedCount * 100 / totalArticles) : 0}%"></div></div>
+              </div>
+              <div>
+                <div class="mb-2 flex items-center justify-between text-sm font-medium text-slate-600"><span>Brouillons</span><span>${draftCount}/${totalArticles}</span></div>
+                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-slate-500" data-width="${totalArticles > 0 ? (draftCount * 100 / totalArticles) : 0}%"></div></div>
+              </div>
+              <div>
+                <div class="mb-2 flex items-center justify-between text-sm font-medium text-slate-600"><span>Archives</span><span>${archivedCount}/${totalArticles}</span></div>
+                <div class="h-2 rounded-full bg-slate-200"><div class="metric-fill h-2 rounded-full bg-slate-300" data-width="${totalArticles > 0 ? (archivedCount * 100 / totalArticles) : 0}%"></div></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+            <h2 class="text-lg font-semibold text-slate-900">Activite recente</h2>
+            <div class="mt-4 space-y-3">
+              <c:if test="${not empty recentArticles}">
+                <c:forEach items="${recentArticles}" var="article">
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50">
+                    <div class="flex items-start justify-between gap-3">
+                      <div>
+                        <p class="line-clamp-2 text-sm font-semibold text-slate-800"><c:out value="${article.titre}" /></p>
+                        <p class="mt-1 text-xs text-slate-500"><c:out value="${article.createdAt}" /></p>
+                      </div>
+                      <span class="rounded-full px-2 py-1 text-[11px] font-semibold ${article.statut == 'publie' ? 'bg-emerald-100 text-emerald-700' : (article.statut == 'brouillon' ? 'bg-amber-100 text-amber-800' : 'bg-slate-200 text-slate-700')}">${article.statut}</span>
+                    </div>
                   </div>
-                  <span class="badge ${article.statut == 'publie' ? 'bg-success' : (article.statut == 'brouillon' ? 'bg-warning' : 'bg-secondary')}">
-                    ${article.statut}
-                  </span>
-                </div>
-              </div>
-            </c:forEach>
-          </c:if>
+                </c:forEach>
+              </c:if>
+              <c:if test="${empty recentArticles}">
+                <p class="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">Aucun article recent.</p>
+              </c:if>
+            </div>
+          </article>
+        </section>
 
-          <c:if test="${empty recentArticles}">
-            <div class="text-center py-4 text-muted">
-              <i class="bi bi-inbox display-4 mb-3"></i>
-              <p>Aucun article récent</p>
-            </div>
-          </c:if>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Article le plus populaire -->
-  <c:if test="${not empty mostViewedArticle && mostViewedArticle.vues > 0}">
-    <div class="row mb-4">
-      <div class="col-12">
-        <div class="card shadow-sm animate-card">
-          <div class="card-header bg-transparent">
-            <h5 class="card-title mb-0">
-              <i class="bi bi-trophy me-2"></i>Article le plus populaire
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-8">
-                <h6 class="mb-2">
-                  <a href="/article/${mostViewedArticle.slug}" target="_blank" class="text-decoration-none">
-                    <c:out value="${mostViewedArticle.titre}" />
-                  </a>
-                </h6>
-                <p class="text-muted mb-2">
-                  <c:out value="${mostViewedArticle.chapeau}" />
-                </p>
-                <small class="text-muted">
-                  <c:if test="${mostViewedArticle.categorie != null}">
-                    <i class="bi bi-folder me-1"></i>
-                    <c:out value="${mostViewedArticle.categorie.nom}" />
-                  </c:if>
-                </small>
-              </div>
-              <div class="col-md-4 text-center">
-                <div class="display-4 text-primary mb-2">
-                  <i class="bi bi-eye-fill"></i>
-                </div>
-                <h3 class="text-primary">${mostViewedArticle.vues}</h3>
-                <small class="text-muted">vues</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </c:if>
-
-  <!-- Actions rapides -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="card shadow-sm animate-card">
-        <div class="card-header bg-transparent">
-          <h5 class="card-title mb-0">
-            <i class="bi bi-lightning me-2"></i>Actions Rapides
-          </h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <a href="/admin/articles/new" class="quick-action-btn text-center">
-                <i class="bi bi-plus-lg d-block mb-2" style="font-size: 1.5rem;"></i>
-                <strong>Nouvel Article</strong>
-                <small class="d-block mt-1">Créer un article</small>
-              </a>
-            </div>
-            <div class="col-md-3 mb-3">
-              <a href="/admin/articles" class="quick-action-btn text-center" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                <i class="bi bi-list-ul d-block mb-2" style="font-size: 1.5rem;"></i>
-                <strong>Gérer Articles</strong>
-                <small class="d-block mt-1">Modifier, supprimer</small>
-              </a>
-            </div>
-            <div class="col-md-3 mb-3">
-              <a href="/categories/new" class="quick-action-btn text-center" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                <i class="bi bi-folder-plus d-block mb-2" style="font-size: 1.5rem;"></i>
-                <strong>Nouvelle Catégorie</strong>
-                <small class="d-block mt-1">Organiser le contenu</small>
-              </a>
-            </div>
-            <div class="col-md-3 mb-3">
-              <a href="/" target="_blank" class="quick-action-btn text-center" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                <i class="bi bi-box-arrow-up-right d-block mb-2" style="font-size: 1.5rem;"></i>
-                <strong>Voir le Site</strong>
-                <small class="d-block mt-1">Interface publique</small>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Catégories existantes -->
-  <div class="row">
-    <div class="col-12">
-      <div class="card shadow-sm animate-card">
-        <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-          <h5 class="card-title mb-0">
-            <i class="bi bi-folder me-2"></i>Catégories
-            <span class="badge bg-primary">${totalCategories}</span>
-          </h5>
-          <a href="/categories" class="btn btn-outline-primary btn-sm">
-            <i class="bi bi-gear me-1"></i>Gérer
-          </a>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-4 text-center">
-              <div class="display-4 text-success mb-2">
-                <i class="bi bi-folder-check"></i>
-              </div>
-              <h4 class="text-success">${totalCategories}</h4>
-              <small class="text-muted">Catégories actives</small>
-            </div>
-            <div class="col-md-8">
-              <p class="mb-2">Organisez votre contenu par thématiques :</p>
-              <div class="d-flex justify-content-between">
-                <small class="text-muted">
-                  <i class="bi bi-info-circle me-1"></i>
-                  Les catégories permettent une navigation structurée
-                </small>
-                <a href="/categories/new" class="small">
-                  <i class="bi bi-plus me-1"></i>Ajouter
+        <c:if test="${not empty mostViewedArticle && mostViewedArticle.vues > 0}">
+          <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Article le plus populaire</p>
+                <a href="/article/${mostViewedArticle.slug}" target="_blank" class="mt-2 block text-xl font-semibold text-slate-900 transition hover:text-blue-700">
+                  <c:out value="${mostViewedArticle.titre}" />
                 </a>
+                <p class="mt-2 max-w-3xl text-sm text-slate-600"><c:out value="${mostViewedArticle.chapeau}" /></p>
+              </div>
+              <div class="rounded-2xl bg-blue-50 px-6 py-4 text-center">
+                <p class="text-xs font-semibold uppercase tracking-wide text-blue-600">Vues</p>
+                <p class="mt-1 text-3xl font-bold text-blue-900">${mostViewedArticle.vues}</p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </section>
+        </c:if>
+
+        <section class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <a href="/admin/articles/new" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-50">
+            <p class="text-sm font-semibold text-slate-900">Nouvel article</p>
+            <p class="mt-1 text-sm text-slate-600">Demarrer une publication</p>
+          </a>
+          <a href="/admin/articles" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-50">
+            <p class="text-sm font-semibold text-slate-900">Gerer les articles</p>
+            <p class="mt-1 text-sm text-slate-600">Modifier ou supprimer</p>
+          </a>
+          <a href="/categories/new" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-50">
+            <p class="text-sm font-semibold text-slate-900">Nouvelle categorie</p>
+            <p class="mt-1 text-sm text-slate-600">Structurer la ligne editoriale</p>
+          </a>
+          <a href="/categories" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-50">
+            <p class="text-sm font-semibold text-slate-900">Categories (${totalCategories})</p>
+            <p class="mt-1 text-sm text-slate-600">Organiser les thematiques</p>
+          </a>
+        </section>
+      </main>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// Graphique en camembert pour les statuts d'articles
-const ctx = document.getElementById('statusChart').getContext('2d');
-const statusData = ${statusData};
+  <script>
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    const rawStatusData = '<c:out value="${statusData}" />';
+    const chartStatusData = JSON.parse(rawStatusData);
 
-new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Publiés', 'Brouillons', 'Archivés'],
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Publies', 'Brouillons', 'Archives'],
         datasets: [{
-            data: statusData,
-            backgroundColor: [
-                '#28a745', // Vert pour publiés
-                '#ffc107', // Jaune pour brouillons
-                '#6c757d'  // Gris pour archivés
-            ],
-            borderWidth: 3,
-            borderColor: '#fff'
+          data: chartStatusData,
+          backgroundColor: ['#2563eb', '#64748b', '#cbd5e1'],
+          borderColor: '#ffffff',
+          borderWidth: 4
         }]
-    },
-    options: {
+      },
+      options: {
         responsive: true,
         maintainAspectRatio: false,
+        cutout: '68%',
         plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    padding: 20,
-                    usePointStyle: true
-                }
+          legend: {
+            position: 'bottom',
+            labels: {
+              usePointStyle: true,
+              padding: 18,
+              color: '#334155',
+              font: {
+                family: 'Plus Jakarta Sans',
+                size: 12,
+                weight: '600'
+              }
             }
-        },
-        cutout: '60%',
-        animation: {
-            animateScale: true,
-            animateRotate: true,
-            duration: 1500
+          }
         }
-    }
-});
-
-// Animation des cartes au scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
+      }
     });
-}, observerOptions);
 
-// Observer toutes les cartes animées
-document.querySelectorAll('.animate-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    observer.observe(card);
-});
-
-// Animation des barres de progression
-setTimeout(() => {
-    document.querySelectorAll('.performance-fill').forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = '0%';
-        setTimeout(() => {
-            bar.style.width = width;
-        }, 300);
-    });
-}, 1000);
-</script>
-</body>
-</html>
+    setTimeout(() => {
+      document.querySelectorAll('.metric-fill').forEach((item) => {
+        const finalWidth = item.getAttribute('data-width') || '0%';
+        item.style.width = '0%';
+        requestAnimationFrame(() => {
+          item.style.width = finalWidth;
+        });
+      });
+    }, 350);
+  </script>
+  </body>
+  </html>
