@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: mini-projet-s6
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://postgres:5432/mini_projet_s6}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+    open-in-view: false
+
+  sql:
+    init:
+      mode: never
+
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    com.miniprojets6: INFO
+    org.springframework.security: WARN
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+    console: '%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n'
+  file:
+    name: /app/logs/application.log
