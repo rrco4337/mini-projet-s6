@@ -26,5 +26,18 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 25MB
+
 server:
   port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.miniprojets6.user: DEBUG
+
+app:
+  upload-dir: uploads

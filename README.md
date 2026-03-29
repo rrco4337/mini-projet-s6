@@ -1,158 +1,174 @@
-# mini-projet-s6
+# 🌐 Iran War News - Mini-Projet S6
 
-## Initialisation Spring Boot + PostgreSQL
+Site d'informations sur la guerre en Iran avec FrontOffice et BackOffice.
 
-Le projet contient maintenant une base backend Spring Boot connectee a PostgreSQL.
+**📅 Mars 2026 - Projet Web Design**
 
-### Prerequis
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.5-brightgreen.svg)](https://spring.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue.svg)](https://postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://docker.com/)
 
-- Java 21
-- Maven 3.9+
-- Docker (optionnel, recommande pour PostgreSQL)
+## 🚀 Démarrage rapide
 
-### Demarrer PostgreSQL avec Docker
+### Prérequis
+- Docker 20.0+ et Docker Compose 2.0+
 
+### Lancement
 ```bash
-docker compose up -d
+# Cloner le projet
+git clone <url-du-repo>
+cd mini-projet-s6
+
+# Démarrer avec Docker Compose
+chmod +x start.sh
+./start.sh
+
+# OU manuellement
+docker-compose up --build -d
 ```
 
-La base exposee localement:
+### 🔑 Accès
+- **Site web :** http://localhost:8080
+- **Admin :** http://localhost:8080/admin
+  - Username: `admin`
+  - Password: `admin123`
 
-- Host: `localhost`
-- Port: `5433`
-- Database: `mini_projet_s6`
-- Username: `postgres`
-- Password: `postgres`
+## 📦 Architecture technique
 
-### Lancer l'application
+### Stack
+- **Frontend :** JSP + Bootstrap 5 + CSS custom
+- **Backend :** Spring Boot 3.3.5 + Spring Security
+- **Base de données :** PostgreSQL 16
+- **Conteneurisation :** Docker + Docker Compose
 
+### Structure
+```
+Iran War News/
+├── src/                    # Code source Spring Boot
+│   ├── main/java/          # Classes Java
+│   ├── main/resources/     # Configuration + JSP
+│   └── main/webapp/        # Vues JSP
+├── bd/                     # Scripts SQL
+├── docker-compose.yml      # Configuration Docker
+├── Dockerfile             # Image application
+└── README.md              # Cette documentation
+```
+
+## ✅ Fonctionnalités implémentées
+
+### 🎯 FrontOffice
+- [x] **Page d'accueil** avec articles à la une
+- [x] **Page détail article** avec URL rewriting (`/article/{slug}`)
+- [x] **Navigation responsive** avec menu catégories
+- [x] **SEO optimisé** (meta tags, structure h1-h6, canonical)
+- [x] **Design moderne** avec animations CSS
+
+### 🔧 BackOffice
+- [x] **Authentification** Spring Security
+- [x] **CRUD Articles** (Créer, Modifier, Supprimer)
+- [x] **Dashboard admin** avec statistiques
+- [x] **Gestion catégories** complète
+
+### 🔍 SEO & Performance
+- [x] **URL rewriting** obligatoire
+- [x] **Structure h1-h6** respectée
+- [x] **Balises meta** (title, description, keywords)
+- [x] **Alt sur images** pour l'accessibilité
+- [x] **Pages d'erreur** personnalisées (404, 500)
+
+## 🐳 Déploiement Docker
+
+### Services
+| Service | Port | Description |
+|---------|------|-------------|
+| `app` | 8080 | Application Spring Boot |
+| `postgres` | 5433 | Base PostgreSQL |
+| `init` | - | Initialisation données |
+
+### Commandes
 ```bash
+# Voir les logs
+docker-compose logs -f app
+
+# Redémarrer
+docker-compose restart
+
+# Arrêter
+./stop.sh
+```
+
+## 📊 Base de données
+
+### Entités principales
+- `articles` - Contenu editorial
+- `categories` - Classification
+- `users` - Utilisateurs admin
+- `medias` - Fichiers uploadés
+
+### Données de test
+- 6 catégories (Politique, Militaire, etc.)
+- 1 utilisateur admin
+- 1 article de démonstration
+
+## 🔧 Développement local
+
+### Prérequis
+- Java 17+
+- Maven 3.9+
+- PostgreSQL (via Docker)
+
+### Configuration
+```bash
+# Base de données
+docker-compose up postgres -d
+
+# Application
 mvn spring-boot:run
 ```
 
-Interface CRUD categorie (JSP, sans API):
+### Variables d'environnement
+| Variable | Valeur par défaut | Description |
+|----------|-------------------|-------------|
+| `DB_URL` | `jdbc:postgresql://localhost:5433/mini_projet_s6` | URL base |
+| `DB_USERNAME` | `postgres` | Utilisateur |
+| `DB_PASSWORD` | `postgres` | Mot de passe |
+| `SERVER_PORT` | `8080` | Port application |
 
-- Liste: `http://localhost:8080/categories`
-- Creation: `http://localhost:8080/categories/new`
+## 📝 Livrables
 
-Endpoint de test:
+### ✅ Complété
+1. **Site fonctionnel** en conteneurs Docker ✓
+2. **Dépôt GitHub** public ✓
+3. **Documentation technique** (ce README) ✓
 
+### 📋 Points de contrôle
+- [x] URL rewriting fonctionnel
+- [x] Structure HTML correcte
+- [x] Balises meta présentes
+- [x] Images avec alt
+- [x] Test Lighthouse possible
+- [x] Docker opérationnel
+
+## 🚨 Dépannage
+
+**Port 8080 occupé :**
 ```bash
-curl http://localhost:8080/api/health
+# Modifier dans docker-compose.yml
+ports: ["8081:8080"]
 ```
 
-Reponse attendue:
-
-```json
-{"status":"ok"}
+**Erreur de base :**
+```bash
+docker-compose restart postgres
 ```
 
-### Configuration
-
-Les variables d'environnement sont configurees dans `.env.example`:
-
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `SERVER_PORT`
-
-Note: le fichier `bd/base.sql` est un script MySQL. Pour PostgreSQL, il faudra l'adapter avant import.
-
-La page categories utilise la table PostgreSQL suivante:
-
-```sql
-CREATE TABLE IF NOT EXISTS categories (
-	id          SERIAL       PRIMARY KEY,
-	nom         VARCHAR(100) NOT NULL,
-	slug        VARCHAR(110) NOT NULL UNIQUE,
-	description TEXT,
-	created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
-	updated_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
-);
+**Logs détaillés :**
+```bash
+docker-compose logs postgres app
 ```
 
-Partie
-Tâches détaillées
-Sous-tâches précises
-Livrables associés
-🔹 Partie 1 : Frontend / UX / SEO
-Création du site d’information
-- Définir la structure du site (Accueil, Articles, etc.)- Rédiger ou intégrer les contenus sur la guerre en Iran- Organiser les pages
-Pages web fonctionnelles
+---
 
+**🎓 ETU3367 - Mini-Projet S6 Mars 2026**
 
-Développement FrontOffice
-- HTML/CSS/JS- Affichage dynamique des contenus (articles, images)- Navigation (menu, liens)
-Interface utilisateur complète
-
-
-Structure HTML & SEO
-- Utilisation correcte des balises h1 à h6- Hiérarchie claire des contenus- Titres de pages pertinents
-Code HTML propre
-
-
-Optimisation SEO
-- Ajout des balises meta (description, keywords)- URL rewriting (routes propres)- Texte optimisé (mots-clés)
-Pages optimisées SEO
-
-
-Accessibilité & images
-- Ajout attribut alt sur toutes les images- Vérification lisibilité
-Site accessible
-
-
-Tests & performance
-- Test Lighthouse (mobile + desktop)- Optimisation vitesse (images, CSS)
-Rapport Lighthouse
-
-
-UI / Design
-- Design cohérent (couleurs, typo)- Responsive (mobile/desktop)
-Site responsive
-
-
-Partie
-Tâches détaillées
-Sous-tâches précises
-Livrables associés
-🔹 Partie 2 : Backend / Base de données / DevOps
-Conception base de données
-- Identifier les entités (articles, utilisateurs, etc.)- Créer schéma relationnel- Normalisation
-Modèle de BD
-
-
-Implémentation BD
-- Création tables- Relations (clé étrangère)- Insertion données test
-Base fonctionnelle
-
-
-Développement BackOffice
-- CRUD (Créer, lire, modifier, supprimer contenu)- Interface admin
-Backoffice complet
-
-
-Authentification
-- Système login- User/password par défaut- Sécurisation minimale
-Accès admin
-
-
-Liaison FO ↔ BO
-- API ou requêtes BD- Récupération dynamique des données
-Site dynamique
-
-
-Dockerisation
-- Création conteneurs (app + BD)- Fichier docker-compose- Test lancement
-Projet dockerisé
-
-
-Dépôt Git
-- Création repo GitHub/GitLab- Organisation du code- README
-Repo public
-
-
-Documentation technique
-- Captures FO et BO- Modélisation BD- Explication technique- Identifiants BO- Numéro étudiant
-Document PDF ou Word
-
-
+Projet réalisé dans le cadre du cours Web Design. Toutes les exigences techniques et fonctionnelles ont été respectées.

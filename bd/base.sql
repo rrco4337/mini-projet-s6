@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS parametres_site  CASCADE;
 DROP TABLE IF EXISTS pages_statiques  CASCADE;
 DROP TABLE IF EXISTS commentaires     CASCADE;
 DROP TABLE IF EXISTS article_tag      CASCADE;
+DROP TABLE IF EXISTS article_categories CASCADE;
 DROP TABLE IF EXISTS articles         CASCADE;
 DROP TABLE IF EXISTS medias           CASCADE;
 DROP TABLE IF EXISTS users            CASCADE;
@@ -142,6 +143,22 @@ COMMENT ON COLUMN articles.contenu       IS 'Corps de l''article en HTML';
 COMMENT ON COLUMN articles.a_la_une      IS 'Mis en avant sur la page d''accueil';
 COMMENT ON COLUMN articles.meta_title    IS 'Balise <title> SEO – 60 caractères max';
 COMMENT ON COLUMN articles.meta_description IS 'Balise <meta description> – 155 caractères max';
+
+-- ============================================================
+-- TABLE PIVOT : article_categories (relation N-N)
+-- ============================================================
+CREATE TABLE article_categories (
+  article_id  INTEGER NOT NULL REFERENCES articles(id) ON DELETE CASCADE,
+  category_id INTEGER NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  PRIMARY KEY (article_id, category_id)
+);
+
+-- Migration de compatibilite depuis l'ancienne colonne articles.categorie_id
+INSERT INTO article_categories (article_id, category_id)
+SELECT id, categorie_id
+FROM articles
+WHERE categorie_id IS NOT NULL
+ON CONFLICT DO NOTHING;
 
 -- ============================================================
 -- TABLE PIVOT : article_tag  (relation N-N)
