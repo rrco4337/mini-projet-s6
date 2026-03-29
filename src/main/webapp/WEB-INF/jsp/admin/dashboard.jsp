@@ -7,6 +7,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tableau de bord - Iran War News</title>
+  <meta name="description" content="Tableau de bord backoffice pour la gestion editoriale Iran War News." />
+  <meta name="keywords" content="backoffice, dashboard admin, iran war news" />
+  <meta name="robots" content="noindex, nofollow" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -309,7 +312,7 @@
                     </h6>
                     <small class="text-muted">
                       <i class="bi bi-calendar me-1"></i>
-                      <fmt:formatDate value="${article.createdAt.toInstant()}" pattern="dd/MM/yyyy HH:mm" />
+                      <c:out value="${article.createdAt}" />
                     </small>
                   </div>
                   <span class="badge ${article.statut == 'publie' ? 'bg-success' : (article.statut == 'brouillon' ? 'bg-warning' : 'bg-secondary')}">

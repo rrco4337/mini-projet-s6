@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
 
@@ -20,6 +21,9 @@
         <c:forEach items="${featuredArticles}" var="article" end="2">
           <div class="col-md-4 mb-4">
             <div class="card h-100 shadow-sm">
+              <c:if test="${not empty article.imageUrl}">
+                <img src="${article.imageUrl}" alt="${fn:escapeXml(empty article.imageAlt ? 'Illustration de l article' : article.imageAlt)}" class="card-img-top" />
+              </c:if>
               <div class="card-body">
                 <c:if test="${article.categorie != null}">
                   <a href="/categorie/${article.categorie.slug}" class="badge bg-secondary text-decoration-none mb-2">
@@ -62,6 +66,11 @@
           <article class="card shadow-sm">
             <div class="card-body">
               <div class="row">
+                <c:if test="${not empty article.imageUrl}">
+                  <div class="col-md-4 mb-3 mb-md-0">
+                    <img src="${article.imageUrl}" alt="${fn:escapeXml(empty article.imageAlt ? 'Illustration de l article' : article.imageAlt)}" class="img-fluid rounded" />
+                  </div>
+                </c:if>
                 <div class="col">
                   <c:if test="${article.categorie != null}">
                     <a href="/categorie/${article.categorie.slug}" class="badge bg-secondary text-decoration-none mb-2">

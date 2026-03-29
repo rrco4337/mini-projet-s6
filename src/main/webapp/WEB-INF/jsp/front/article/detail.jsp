@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 
 <%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
 
@@ -37,6 +38,26 @@
       <div class="lead border-start border-4 border-primary ps-3 mb-4">
         <c:out value="${article.chapeau}" />
       </div>
+    </c:if>
+
+    <c:if test="${not empty article.galleryImages}">
+      <section class="mb-4">
+        <h3 class="h5 mb-3">Galerie</h3>
+        <div class="row g-3">
+          <c:forEach items="${article.galleryImages}" var="img">
+            <div class="col-12 col-md-6">
+              <figure class="mb-0">
+                <img src="${img.url}" alt="${fn:escapeXml(empty img.alt ? 'Illustration de l article' : img.alt)}" class="img-fluid rounded w-100" />
+              </figure>
+            </div>
+          </c:forEach>
+        </div>
+      </section>
+    </c:if>
+    <c:if test="${empty article.galleryImages and not empty article.imageUrl}">
+      <figure class="mb-4">
+        <img src="${article.imageUrl}" alt="${fn:escapeXml(empty article.imageAlt ? 'Illustration de l article' : article.imageAlt)}" class="img-fluid rounded" />
+      </figure>
     </c:if>
 
     <section class="article-content">

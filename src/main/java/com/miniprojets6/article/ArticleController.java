@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -37,6 +38,8 @@ public class ArticleController {
 
     @PostMapping
     public String create(@Valid @ModelAttribute("articleForm") ArticleForm form,
+                         @RequestParam(value = "images", required = false) MultipartFile[] images,
+                         @RequestParam(value = "imageAlts", required = false) String imageAlts,
                          BindingResult bindingResult,
                          Model model,
                          RedirectAttributes redirectAttributes) {
@@ -48,9 +51,13 @@ public class ArticleController {
         }
 
         try {
-            articleService.create(form);
+            articleService.create(form, images, imageAlts);
         } catch (IllegalArgumentException ex) {
-            bindingResult.rejectValue("slug", "slug.duplicate", ex.getMessage());
+            if (ex.getMessage() != null && ex.getMessage().contains("slug")) {
+                bindingResult.rejectValue("slug", "slug.duplicate", ex.getMessage());
+            } else {
+                bindingResult.reject("article.error", ex.getMessage());
+            }
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("statuts", ArticleStatut.values());
             model.addAttribute("mode", "create");
@@ -95,6 +102,8 @@ public class ArticleController {
     @PostMapping("/{id}")
     public String update(@PathVariable Integer id,
                          @Valid @ModelAttribute("articleForm") ArticleForm form,
+                         @RequestParam(value = "images", required = false) MultipartFile[] images,
+                         @RequestParam(value = "imageAlts", required = false) String imageAlts,
                          BindingResult bindingResult,
                          Model model,
                          RedirectAttributes redirectAttributes) {
@@ -107,9 +116,13 @@ public class ArticleController {
         }
 
         try {
-            articleService.update(id, form);
+            articleService.update(id, form, images, imageAlts);
         } catch (IllegalArgumentException ex) {
-            bindingResult.rejectValue("slug", "slug.duplicate", ex.getMessage());
+            if (ex.getMessage() != null && ex.getMessage().contains("slug")) {
+                bindingResult.rejectValue("slug", "slug.duplicate", ex.getMessage());
+            } else {
+                bindingResult.reject("article.error", ex.getMessage());
+            }
             model.addAttribute("articleId", id);
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("statuts", ArticleStatut.values());

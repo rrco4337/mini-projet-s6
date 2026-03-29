@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="pageTitle" value="Erreur serveur" />
+<c:set var="metaDescription" value="Erreur 500: une erreur serveur inattendue s'est produite. Merci de reessayer plus tard." />
+<c:set var="metaKeywords" value="erreur 500, erreur serveur, iran war news" />
+<c:set var="metaRobots" value="noindex, nofollow" />
 
 <%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
 

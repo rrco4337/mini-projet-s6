@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="pageTitle" value="Acces refuse" />
+<c:set var="metaDescription" value="Erreur 403: acces refuse. Vous n'avez pas les droits necessaires pour consulter cette page." />
+<c:set var="metaKeywords" value="erreur 403, acces refuse, iran war news" />
+<c:set var="metaRobots" value="noindex, nofollow" />
 
 <%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
 

@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="pageTitle" value="Page non trouvee" />
+<c:set var="metaDescription" value="Erreur 404: page non trouvee. Le contenu recherche est introuvable ou a ete deplace." />
+<c:set var="metaKeywords" value="erreur 404, page non trouvee, iran war news" />
+<c:set var="metaRobots" value="noindex, nofollow" />
 
 <%@ include file="/WEB-INF/jsp/includes/header.jsp" %>
 

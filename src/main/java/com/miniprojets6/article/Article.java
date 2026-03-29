@@ -6,6 +6,8 @@ import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "articles")
@@ -41,6 +43,15 @@ public class Article {
 
     @Column(name = "image_une")
     private Integer imageUne;
+
+    @Transient
+    private String imageUrl;
+
+    @Transient
+    private String imageAlt;
+
+    @Transient
+    private List<ArticleImageView> galleryImages = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categorie_id")
@@ -160,6 +171,30 @@ public class Article {
 
     public void setImageUne(Integer imageUne) {
         this.imageUne = imageUne;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageAlt() {
+        return imageAlt;
+    }
+
+    public void setImageAlt(String imageAlt) {
+        this.imageAlt = imageAlt;
+    }
+
+    public List<ArticleImageView> getGalleryImages() {
+        return galleryImages;
+    }
+
+    public void setGalleryImages(List<ArticleImageView> galleryImages) {
+        this.galleryImages = galleryImages;
     }
 
     public Category getCategorie() {

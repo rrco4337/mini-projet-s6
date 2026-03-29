@@ -22,7 +22,7 @@ BACK (LOGIQUE)
 - CRUD : Ajouter article → Cindy
 - CRUD : Afficher article → Cindy
 - Base de données (table articles - participation) → Cindy
-- API : lecture des articles → Cindy
+
 
 --------------------------------------------------
 CLARITA

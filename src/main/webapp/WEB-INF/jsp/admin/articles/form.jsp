@@ -7,6 +7,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${mode == 'edit' ? 'Modifier' : 'Creer'} un article - BackOffice</title>
+  <meta name="description" content="Formulaire backoffice pour creer ou modifier un article Iran War News." />
+  <meta name="keywords" content="formulaire article, administration, iran war news" />
+  <meta name="robots" content="noindex, nofollow" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <style>
@@ -35,7 +38,9 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <form:form action="${mode == 'edit' ? '/admin/articles/'.concat(articleId) : '/admin/articles'}"
-                     method="post" modelAttribute="articleForm">
+                     method="post" modelAttribute="articleForm" enctype="multipart/form-data">
+
+            <form:errors cssClass="alert alert-danger d-block" element="div" />
 
             <div class="mb-3">
               <label for="titre" class="form-label">Titre *</label>
@@ -71,6 +76,19 @@
               <form:textarea path="contenu" cssClass="form-control" id="contenu" rows="12" />
               <form:errors path="contenu" cssClass="text-danger small" />
               <small class="text-muted">HTML autorise</small>
+            </div>
+
+            <div class="mb-3">
+              <label for="images" class="form-label">Images (une ou plusieurs)</label>
+              <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple />
+              <small class="text-muted">Formats image uniquement, 5 Mo maximum par fichier.</small>
+            </div>
+
+            <div class="mb-3">
+              <label for="imageAlts" class="form-label">Texte alternatif (alt)</label>
+              <textarea class="form-control" id="imageAlts" name="imageAlts" rows="3"
+                        placeholder="Un texte alt par ligne, dans le meme ordre que les images"></textarea>
+              <small class="text-muted">Exemple: ligne 1 = alt de la 1ere image, ligne 2 = alt de la 2e image.</small>
             </div>
 
             <hr class="my-4" />
