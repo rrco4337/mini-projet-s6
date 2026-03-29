@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -44,6 +45,14 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public List<Article> findAllPublished() {
         List<Article> articles = articleRepository.findByStatutOrderByDatePublicationDesc(ArticleStatut.publie);
+        articles.forEach(this::enrichPrimaryImage);
+        return articles;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Article> findPublishedByFilters(String categorySlug, LocalDate publicationDate) {
+        String normalizedCategory = (categorySlug == null || categorySlug.isBlank()) ? null : categorySlug;
+        List<Article> articles = articleRepository.findPublishedByFilters(ArticleStatut.publie, normalizedCategory, publicationDate);
         articles.forEach(this::enrichPrimaryImage);
         return articles;
     }

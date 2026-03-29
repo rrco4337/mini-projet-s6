@@ -14,6 +14,39 @@
 
 <main class="container py-4">
 
+  <section class="mb-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form method="get" action="/" class="row g-3 align-items-end">
+          <div class="col-md-5">
+            <label for="categorySlug" class="form-label">Categorie</label>
+            <select id="categorySlug" name="categorySlug" class="form-select">
+              <option value="">Toutes les categories</option>
+              <c:forEach items="${navCategories}" var="cat">
+                <option value="${cat.slug}" ${selectedCategorySlug == cat.slug ? 'selected' : ''}>
+                  <c:out value="${cat.nom}" />
+                </option>
+              </c:forEach>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="publicationDate" class="form-label">Date de publication</label>
+            <input id="publicationDate" name="publicationDate" type="date" class="form-control"
+                   value="${selectedPublicationDate}" />
+          </div>
+
+          <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-search me-1"></i>Rechercher
+            </button>
+            <a href="/" class="btn btn-outline-secondary">Reset</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <c:if test="${not empty featuredArticles}">
     <section class="mb-5">
       <h2 class="h3 mb-4"><i class="bi bi-star me-2"></i>A la une</h2>
