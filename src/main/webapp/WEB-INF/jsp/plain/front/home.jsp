@@ -20,9 +20,9 @@
               <p class="block text-xs uppercase tracking-[0.2em] font-semibold text-gray-500 mb-2">Categories</p>
               <div class="flex flex-wrap gap-2">
                 <%
-                  List<com.miniprojets6.plain.front.PlainFrontCategory> navCategories = (List<com.miniprojets6.plain.front.PlainFrontCategory>) request.getAttribute("navCategories");
-                  if (navCategories != null) {
-                    for (com.miniprojets6.plain.front.PlainFrontCategory cat : navCategories) {
+                  List<com.miniprojets6.plain.front.PlainFrontCategory> homeNavCategories = (List<com.miniprojets6.plain.front.PlainFrontCategory>) request.getAttribute("navCategories");
+                  if (homeNavCategories != null) {
+                    for (com.miniprojets6.plain.front.PlainFrontCategory cat : homeNavCategories) {
                       boolean selected = selectedCategorySlugs != null && selectedCategorySlugs.contains(cat.getSlug());
                 %>
                 <label class="cursor-pointer">

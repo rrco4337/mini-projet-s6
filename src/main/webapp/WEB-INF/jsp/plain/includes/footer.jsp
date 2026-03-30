@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.miniprojets6.plain.front.PlainFrontCategory" %>
 <%
-  List<PlainFrontCategory> navCategories = (List<PlainFrontCategory>) request.getAttribute("navCategories");
+  List<PlainFrontCategory> footerNavCategories = (List<PlainFrontCategory>) request.getAttribute("navCategories");
 %>
 <footer class="mt-16 border-t border-stone bg-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -15,9 +15,9 @@
       <div>
         <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-500">Categories</h4>
         <ul class="mt-3 space-y-2 text-sm">
-          <% if (navCategories != null && !navCategories.isEmpty()) {
-               for (int i = 0; i < navCategories.size() && i < 6; i++) {
-                 PlainFrontCategory cat = navCategories.get(i);
+          <% if (footerNavCategories != null && !footerNavCategories.isEmpty()) {
+               for (int i = 0; i < footerNavCategories.size() && i < 6; i++) {
+                 PlainFrontCategory cat = footerNavCategories.get(i);
           %>
           <li><a href="/noframework/home?categorySlugs=<%= cat.getSlug() %>" class="text-gray-700 hover:text-ink transition-colors"><%= cat.getNom() %></a></li>
           <%   }

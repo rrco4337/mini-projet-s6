@@ -8,6 +8,14 @@ public final class PlainDb {
     private PlainDb() {
     }
 
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) {
+            throw new IllegalStateException("PostgreSQL JDBC driver introuvable dans le classpath", ex);
+        }
+    }
+
     public static Connection openConnection() throws SQLException {
         String url = getenvOrDefault("DB_URL", "jdbc:postgresql://localhost:5433/mini_projet_s6");
         String username = getenvOrDefault("DB_USERNAME", "postgres");
