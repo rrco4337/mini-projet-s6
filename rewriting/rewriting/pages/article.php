@@ -20,9 +20,14 @@ if (!$article) {
     exit;
 }
 
+// Incremente les vues en front legacy
+query('UPDATE articles SET vues = vues + 1 WHERE id = ?', [$article['id']]);
+$article['vues'] = (int) $article['vues'] + 1;
+
 $pageTitle = $article['titre'];
 
 $galleryMedias = [];
+$articleCategories = [];
 try {
     $hasArticleMediasTable = (bool) fetchColumn("SELECT to_regclass('public.article_medias') IS NOT NULL");
     if ($hasArticleMediasTable) {
@@ -34,62 +39,94 @@ try {
             [$article['id']]
         );
     }
+
+        $articleCategories = fetchAll(
+                'SELECT c.nom, c.slug
+                 FROM article_categories ac
+                 JOIN categories c ON c.id = ac.category_id
+                 WHERE ac.article_id = ?
+                 ORDER BY c.nom ASC',
+                [$article['id']]
+        );
 } catch (Exception $e) {
     $galleryMedias = [];
+        $articleCategories = [];
 }
 ?>
 
 <?php include BASE_PATH . '/includes/header.php'; ?>
 
-<article class="max-w-3xl mx-auto">
-    <div class="mb-8">
-        <span class="text-xs uppercase tracking-widest font-semibold text-blue-600">
-            <?php echo e($article['categorie_nom']); ?>
-        </span>
-        <h1 class="text-4xl font-serif font-bold text-gray-900 mt-4 mb-4">
-            <?php echo e($article['titre']); ?>
-        </h1>
-        <p class="text-gray-600">
-            <?php echo formatDate($article['date_publication']); ?>
-        </p>
-    </div>
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+    <article class="bg-white rounded-2xl border border-stone shadow-editorial p-6 sm:p-10">
+        <header class="mb-8 pb-6 border-b border-stone">
+            <?php if (!empty($articleCategories)): ?>
+                <div class="mb-4 flex flex-wrap gap-2">
+                    <?php foreach ($articleCategories as $cat): ?>
+                        <a href="/categorie/<?php echo e($cat['slug']); ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
+                            <?php echo e($cat['nom']); ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            <?php elseif (!empty($article['categorie_slug'])): ?>
+                <a href="/categorie/<?php echo e($article['categorie_slug']); ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-4">
+                    <?php echo e($article['categorie_nom']); ?>
+                </a>
+            <?php endif; ?>
 
-    <?php if (!empty($article['image_fichier'])): ?>
-    <div class="mb-8">
-        <img src="/uploads/<?php echo e($article['image_fichier']); ?>" alt="<?php echo e($article['image_alt'] ?? $article['titre']); ?>" class="w-full max-h-[520px] object-cover rounded-xl border border-gray-200">
-    </div>
-    <?php endif; ?>
-    
-    <div class="prose prose-lg max-w-none mb-12">
-        <p class="text-xl text-gray-700 font-semibold mb-6 italic border-l-4 border-blue-600 pl-6">
-            <?php echo e($article['chapeau']); ?>
-        </p>
-        
-        <div class="article-content bg-white p-8 rounded-lg border border-gray-200">
-            <?php echo $article['contenu']; ?>
-        </div>
-    </div>
+            <h1 class="font-serif text-4xl sm:text-5xl leading-tight font-bold tracking-tight"><?php echo e($article['titre']); ?></h1>
 
-    <?php if (!empty($galleryMedias)): ?>
-    <section class="mb-10">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <?php foreach ($galleryMedias as $media): ?>
-            <figure class="rounded-lg overflow-hidden border border-gray-200 bg-white">
-                <img src="/uploads/<?php echo e($media['fichier']); ?>" alt="<?php echo e($media['alt'] ?? ''); ?>" class="w-full h-44 object-cover">
-                <?php if (!empty($media['alt'])): ?>
-                <figcaption class="p-2 text-xs text-gray-600"><?php echo e($media['alt']); ?></figcaption>
+            <?php if (!empty($article['sous_titre'])): ?>
+                <h2 class="mt-4 text-xl sm:text-2xl text-gray-600 leading-relaxed"><?php echo e($article['sous_titre']); ?></h2>
+            <?php endif; ?>
+
+            <div class="mt-6 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                <?php if (!empty($article['date_publication'])): ?>
+                    <span>
+                        <time datetime="<?php echo e($article['date_publication']); ?>">
+                            <?php echo formatDate($article['date_publication'], 'd F Y \a H:i'); ?>
+                        </time>
+                    </span>
                 <?php endif; ?>
+                <span><?php echo (int) $article['vues']; ?> vue(s)</span>
+            </div>
+        </header>
+
+        <?php if (!empty($article['chapeau'])): ?>
+            <div class="text-xl leading-relaxed text-gray-700 border-l-2 border-gray-300 pl-5 mb-8">
+                <?php echo e($article['chapeau']); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($galleryMedias)): ?>
+            <section class="mb-8">
+                <h3 class="font-serif text-2xl font-semibold mb-4">Galerie</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <?php foreach ($galleryMedias as $media): ?>
+                        <div>
+                            <figure>
+                                <img src="/uploads/<?php echo e($media['fichier']); ?>" alt="<?php echo e($media['alt'] ?? 'Illustration de l article'); ?>" class="w-full h-64 object-cover rounded-xl border border-stone" />
+                            </figure>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </section>
+        <?php elseif (!empty($article['image_fichier'])): ?>
+            <figure class="mb-8">
+                <img src="/uploads/<?php echo e($article['image_fichier']); ?>" alt="<?php echo e($article['image_alt'] ?? 'Illustration de l article'); ?>" class="w-full h-auto rounded-xl border border-stone" />
             </figure>
-            <?php endforeach; ?>
-        </div>
-    </section>
-    <?php endif; ?>
-    
-    <div class="flex gap-4">
-        <a href="/" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
-            ← Retour aux actualités
-        </a>
+        <?php endif; ?>
+
+        <section class="article-content text-[1.05rem] leading-8 text-gray-800">
+            <?php echo $article['contenu']; ?>
+        </section>
+    </article>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/" class="inline-flex items-center rounded-lg border border-stone px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">Retour a l'accueil</a>
+        <?php if (!empty($article['categorie_slug'])): ?>
+            <a href="/categorie/<?php echo e($article['categorie_slug']); ?>" class="inline-flex items-center rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-black transition-colors">Voir la categorie</a>
+        <?php endif; ?>
     </div>
-</article>
+</main>
 
 <?php include BASE_PATH . '/includes/footer.php'; ?>
