@@ -72,7 +72,6 @@ try {
 
     <?php if (!empty($galleryMedias)): ?>
     <section class="mb-10">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Galerie photos</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <?php foreach ($galleryMedias as $media): ?>
             <figure class="rounded-lg overflow-hidden border border-gray-200 bg-white">
