@@ -53,9 +53,9 @@ $featuredArticles = fetchAll(
 
 $categoryByArticle = [];
 if (!empty($articles) || !empty($featuredArticles)) {
-        $allIds = array_unique(array_map(static function ($a) {
+    $allIds = array_values(array_unique(array_map(static function ($a) {
                 return (int) $a['id'];
-        }, array_merge($articles, $featuredArticles)));
+    }, array_merge($articles, $featuredArticles))));
         if (!empty($allIds)) {
                 $in = implode(',', array_fill(0, count($allIds), '?'));
                 $rows = fetchAll(
