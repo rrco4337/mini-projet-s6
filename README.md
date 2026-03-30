@@ -25,6 +25,12 @@ Ou en mode 100% automatique (recommande):
 ./start.sh
 ```
 
+Equivalent Windows (CMD/PowerShell):
+
+```bat
+start.bat
+```
+
 Ce script lance Docker Compose, attend PostgreSQL, initialise la base si besoin,
 applique les migrations SQL et verifie que l'application repond.
 
@@ -60,10 +66,22 @@ Ou en une seule commande:
 ./reset.sh
 ```
 
+Equivalent Windows (CMD/PowerShell):
+
+```bat
+reset.bat
+```
+
 Version non interactive:
 
 ```bash
 ./reset.sh --yes
+```
+
+Equivalent Windows non interactif:
+
+```bat
+reset.bat --yes
 ```
 
 ## Mode local sans Docker (optionnel)
