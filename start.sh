@@ -29,7 +29,10 @@ echo "⏳ Attente du démarrage des services..."
 sleep 10
 
 # Vérification des services
-if [ "$(docker-compose ps --services --filter 'status=running' | wc -l)" -eq "3" ]; then
+APP_STATUS=$(docker-compose ps -q app | xargs docker inspect -f '{{.State.Status}}' 2>/dev/null)
+POSTGRES_STATUS=$(docker-compose ps -q postgres | xargs docker inspect -f '{{.State.Status}}' 2>/dev/null)
+
+if [ "$APP_STATUS" = "running" ] && [ "$POSTGRES_STATUS" = "running" ]; then
     echo "✅ Tous les services sont démarrés"
     echo ""
     echo "🌐 Application disponible sur : http://localhost:8080"
