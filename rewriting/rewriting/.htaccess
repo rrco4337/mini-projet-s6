@@ -1,0 +1,36 @@
+# Activer le module de reecriture
+Options +FollowSymlinks
+RewriteEngine On
+
+# Definir le repertoire de base
+RewriteBase /rewriting/rewriting/
+
+# Permettre l'acces aux fichiers existants (CSS, JS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rediriger toutes les requetes vers index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Configuration de securite
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Proteger les fichiers sensibles
+<FilesMatch "^(config|core|models|controllers)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Desactiver le listing des repertoires
+Options -Indexes
+
+# Configuration PHP
+<IfModule mod_php.c>
+    php_value upload_max_filesize 5M
+    php_value post_max_size 25M
+    php_value max_execution_time 300
+</IfModule>
