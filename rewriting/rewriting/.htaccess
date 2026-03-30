@@ -1,31 +1,30 @@
-# Activer le module de reecriture
-Options +FollowSymlinks
-RewriteEngine On
+# Réécriture d'URL pour routeur
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Permettre les fichiers/dossiers existants
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Rediriger tout vers index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
 
-# Definir le repertoire de base
-RewriteBase /rewriting/rewriting/
-
-# Permettre l'acces aux fichiers existants (CSS, JS, images, etc.)
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Rediriger toutes les requetes vers index.php
-RewriteRule ^(.*)$ index.php [QSA,L]
-
-# Configuration de securite
+# Sécurité
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
-# Proteger les fichiers sensibles
-<FilesMatch "^(config|core|models|controllers)">
+# Protéger fichiers sensibles
+<FilesMatch "config\.php">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Desactiver le listing des repertoires
+# Désactiver listing répertoires
 Options -Indexes
 
 # Configuration PHP

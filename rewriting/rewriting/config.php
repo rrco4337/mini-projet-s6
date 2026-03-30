@@ -10,7 +10,8 @@ define('DB_NAME', 'iran');
 define('DB_USER', 'postgres');
 define('DB_PASS', 'admin');
 
-// URL
+// URLs et chemins
+define('BASE_PATH', __DIR__);
 define('BASE_URL', 'http://localhost:8000');
 define('UPLOAD_DIR', __DIR__ . '/uploads/');
 
