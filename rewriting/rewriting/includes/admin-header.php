@@ -15,6 +15,10 @@
 </head>
 <body>
 
+<?php
+$requestUri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+?>
+
 <aside class="sidebar">
     <div class="sticky top-0 bg-white p-6 border-b border-slate-200">
         <a href="/admin/" class="flex items-center gap-3">
@@ -27,21 +31,21 @@
     </div>
 
     <nav class="p-6 space-y-1">
-        <a href="/admin/" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) === 'index.php' && strpos($_SERVER['REQUEST_URI'], '/admin/article') === false ? 'nav-active' : ''; ?>">
+        <a href="/admin" class="nav-link <?php echo ($requestUri === '/admin' || $requestUri === '/admin/') ? 'nav-active' : ''; ?>">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13h8V3H3v10zm10 8h8V11h-8v10zM3 21h8v-6H3v6zm10-10h8V3h-8v8z"/>
             </svg>
             Dashboard
         </a>
 
-        <a href="/admin/articles.php" class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'articles') !== false ? 'nav-active' : ''; ?>">
+        <a href="/admin/articles" class="nav-link <?php echo strpos($requestUri, '/admin/article') === 0 || strpos($requestUri, '/admin/articles') === 0 ? 'nav-active' : ''; ?>">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H7a2 2 0 01-2-2V5a2 2 0 012-2h12m0 18a2 2 0 002-2V5a2 2 0 00-2-2m0 18h-7m-3-8h6m-6-4h8m-8 8h8"/>
             </svg>
             Articles
         </a>
 
-        <a href="/admin/categories.php" class="nav-link <?php echo strpos($_SERVER['PHP_SELF'], 'categor') !== false ? 'nav-active' : ''; ?>">
+        <a href="/admin/categories" class="nav-link <?php echo strpos($requestUri, '/admin/categor') === 0 ? 'nav-active' : ''; ?>">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
             </svg>
@@ -65,7 +69,7 @@
                 <a href="/" target="_blank" class="hidden md:inline-block px-4 py-2 text-sm font-medium text-slate-700 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
                     👁️ Voir le site
                 </a>
-                <a href="/logout.php" class="px-4 py-2 text-sm font-medium text-red-700 border border-red-200 rounded-lg hover:bg-red-50 transition">
+                <a href="/logout" class="px-4 py-2 text-sm font-medium text-red-700 border border-red-200 rounded-lg hover:bg-red-50 transition">
                     Déconnexion
                 </a>
             </div>

@@ -2,6 +2,21 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
+
+    # Redirections legacy (.php) vers les routes propres
+    RewriteRule ^admin/index\.php$ /admin [R=301,L]
+    RewriteRule ^admin/articles\.php$ /admin/articles [R=301,L]
+    RewriteRule ^admin/categories\.php$ /admin/categories [R=301,L]
+    RewriteRule ^login\.php$ /login [R=301,L]
+    RewriteRule ^logout\.php$ /logout [R=301,L]
+
+    # Edition article legacy: /admin/article-edit.php?id=123 -> /admin/article/123/edit
+    RewriteCond %{REQUEST_URI} ^/admin/article-edit\.php$ [NC]
+    RewriteCond %{QUERY_STRING} (^|&)id=([0-9]+)(&|$) [NC]
+    RewriteRule ^admin/article-edit\.php$ /admin/article/%2/edit? [R=301,L]
+
+    # Creation article legacy: /admin/article-edit.php -> /admin/article/new
+    RewriteRule ^admin/article-edit\.php$ /admin/article/new [R=301,L]
     
     # Permettre les fichiers/dossiers existants
     RewriteCond %{REQUEST_FILENAME} !-f

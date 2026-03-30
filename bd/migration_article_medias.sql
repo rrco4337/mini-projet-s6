@@ -17,6 +17,6 @@ COMMENT ON TABLE article_medias IS 'Relation N-N entre articles et medias pour s
 COMMENT ON COLUMN article_medias.ordre IS 'Ordre d affichage des images';
 
 -- Index pour les recherches
-CREATE INDEX idx_article_medias_article ON article_medias(article_id);
-CREATE INDEX idx_article_medias_media ON article_medias(media_id);
-CREATE INDEX idx_article_medias_ordre ON article_medias(article_id, ordre);
+CREATE INDEX IF NOT EXISTS idx_article_medias_article ON article_medias(article_id);
+CREATE INDEX IF NOT EXISTS idx_article_medias_media ON article_medias(media_id);
+CREATE INDEX IF NOT EXISTS idx_article_medias_ordre ON article_medias(article_id, ordre);
