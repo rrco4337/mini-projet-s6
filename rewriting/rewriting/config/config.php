@@ -8,10 +8,10 @@ define('DEBUG', true);
 
 // Configuration de la base de donnees
 define('DB_HOST', 'localhost');
-define('DB_PORT', '5433');
-define('DB_NAME', 'mini_projet_s6');
+define('DB_PORT', '5432');
+define('DB_NAME', 'iran');
 define('DB_USER', 'postgres');
-define('DB_PASS', 'postgres');
+define('DB_PASS', 'admin');
 
 // URL de base (modifier selon votre environnement)
 // Pour serveur PHP integre: ''

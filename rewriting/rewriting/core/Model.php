@@ -67,6 +67,12 @@ abstract class Model
         return $stmt->execute([$id]);
     }
 
+    // Alias pour delete (utilise par Media)
+    protected static function _delete(int $id): bool
+    {
+        return static::delete($id);
+    }
+
     public static function count(): int
     {
         $stmt = static::db()->query('SELECT COUNT(*) FROM ' . static::$table);

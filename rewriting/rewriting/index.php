@@ -1,140 +1,54 @@
 <?php
-/**
- * Point d'entree de l'application PHP
- * Iran War News - CMS simple
- */
+require 'config.php';
+require 'includes/db.php';
+require 'includes/functions.php';
 
-// Demarrer la session
-session_name('iran_war_news_session');
-session_start();
+$pageTitle = 'Iran War News - Actualités';
 
-// Charger la configuration
-require_once __DIR__ . '/config/config.php';
+// Récupérer tous les articles publiés
+$articles = fetchAll(
+    'SELECT a.id, a.titre, a.slug, a.chapeau, a.date_publication, c.nom as categorie_nom, c.slug as categorie_slug
+     FROM articles a
+     LEFT JOIN categories c ON a.categorie_id = c.id
+     WHERE a.statut = ? AND a.date_publication <= NOW()
+     ORDER BY a.date_publication DESC
+     LIMIT 20',
+    ['publie']
+);
+?>
 
-// Charger le core
-require_once __DIR__ . '/core/Database.php';
-require_once __DIR__ . '/core/Model.php';
-require_once __DIR__ . '/core/Router.php';
-require_once __DIR__ . '/core/Controller.php';
-require_once __DIR__ . '/core/Auth.php';
+<?php include 'includes/header.php'; ?>
 
-// Charger les modeles
-require_once __DIR__ . '/models/User.php';
-require_once __DIR__ . '/models/Category.php';
-require_once __DIR__ . '/models/Article.php';
-require_once __DIR__ . '/models/Media.php';
+<h1 class="text-4xl font-serif font-bold text-gray-900 mb-12">Dernières Actualités</h1>
 
-// Charger les controleurs
-require_once __DIR__ . '/controllers/HomeController.php';
-require_once __DIR__ . '/controllers/ArticleFrontController.php';
-require_once __DIR__ . '/controllers/AuthController.php';
-require_once __DIR__ . '/controllers/AdminController.php';
-require_once __DIR__ . '/controllers/ArticleAdminController.php';
-require_once __DIR__ . '/controllers/CategoryController.php';
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <?php foreach ($articles as $article): ?>
+    <article class="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition overflow-hidden">
+        <div class="p-6">
+            <span class="text-xs uppercase tracking-widest font-semibold text-blue-600">
+                <?php echo e($article['categorie_nom']); ?>
+            </span>
+            <h2 class="text-xl font-bold text-gray-900 mt-3 mb-2">
+                <?php echo e($article['titre']); ?>
+            </h2>
+            <p class="text-gray-600 text-sm mb-4">
+                <?php echo e(substr($article['chapeau'], 0, 150)) . (strlen($article['chapeau']) > 150 ? '...' : ''); ?>
+            </p>
+            <p class="text-xs text-gray-500 mb-4">
+                <?php echo formatDate($article['date_publication']); ?>
+            </p>
+            <a href="/article.php?slug=<?php echo urlencode($article['slug']); ?>" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold text-sm">
+                Lire l'article →
+            </a>
+        </div>
+    </article>
+    <?php endforeach; ?>
+</div>
 
-// Creer le routeur
-$router = new Router();
+<?php if (empty($articles)): ?>
+<div class="text-center py-20">
+    <p class="text-gray-500 text-lg">Aucun article pour le moment.</p>
+</div>
+<?php endif; ?>
 
-// ===========================
-// ROUTES PUBLIQUES (FRONT)
-// ===========================
-
-// Page d'accueil
-$router->get('/', [HomeController::class, 'index']);
-
-// Detail d'un article
-$router->get('/article/{slug}', [ArticleFrontController::class, 'show']);
-
-// ===========================
-// ROUTES AUTHENTIFICATION
-// ===========================
-
-// Page de connexion
-$router->get('/login', [AuthController::class, 'showLogin'], ['guest']);
-
-// Traitement du formulaire de connexion
-$router->post('/login', [AuthController::class, 'login'], ['guest']);
-
-// Deconnexion
-$router->get('/logout', [AuthController::class, 'logout']);
-
-// ===========================
-// ROUTES ADMIN (PROTEGEES)
-// ===========================
-
-// Tableau de bord
-$router->get('/admin', [AdminController::class, 'dashboard'], ['auth']);
-
-// ===========================
-// GESTION DES ARTICLES
-// ===========================
-
-// Liste des articles publies
-$router->get('/admin/articles', [ArticleAdminController::class, 'index'], ['auth']);
-
-// Liste des brouillons
-$router->get('/admin/articles/drafts', [ArticleAdminController::class, 'drafts'], ['auth']);
-
-// Liste des archives
-$router->get('/admin/articles/archives', [ArticleAdminController::class, 'archives'], ['auth']);
-
-// Formulaire de creation
-$router->get('/admin/articles/new', [ArticleAdminController::class, 'create'], ['auth']);
-
-// Enregistrement d'un nouvel article
-$router->post('/admin/articles', [ArticleAdminController::class, 'store'], ['auth']);
-
-// Formulaire de modification
-$router->get('/admin/articles/{id}/edit', [ArticleAdminController::class, 'edit'], ['auth']);
-
-// Mise a jour d'un article
-$router->post('/admin/articles/{id}', [ArticleAdminController::class, 'update'], ['auth']);
-
-// Suppression d'un article
-$router->post('/admin/articles/{id}/delete', [ArticleAdminController::class, 'delete'], ['auth']);
-
-// Archiver un article
-$router->post('/admin/articles/{id}/archive', [ArticleAdminController::class, 'archive'], ['auth']);
-
-// Restaurer un article
-$router->post('/admin/articles/{id}/restore', [ArticleAdminController::class, 'restore'], ['auth']);
-
-// ===========================
-// GESTION DES CATEGORIES
-// ===========================
-
-// Liste des categories
-$router->get('/categories', [CategoryController::class, 'index'], ['auth']);
-
-// Formulaire de creation
-$router->get('/categories/new', [CategoryController::class, 'create'], ['auth']);
-
-// Enregistrement d'une nouvelle categorie
-$router->post('/categories', [CategoryController::class, 'store'], ['auth']);
-
-// Formulaire de modification
-$router->get('/categories/{id}/edit', [CategoryController::class, 'edit'], ['auth']);
-
-// Mise a jour d'une categorie
-$router->post('/categories/{id}', [CategoryController::class, 'update'], ['auth']);
-
-// Suppression d'une categorie
-$router->post('/categories/{id}/delete', [CategoryController::class, 'delete'], ['auth']);
-
-// ===========================
-// DEMARRER LE ROUTAGE
-// ===========================
-
-try {
-    $router->dispatch();
-} catch (Exception $e) {
-    if (DEBUG) {
-        echo '<h1>Erreur</h1>';
-        echo '<pre>' . e($e->getMessage()) . '</pre>';
-        echo '<pre>' . e($e->getTraceAsString()) . '</pre>';
-    } else {
-        http_response_code(500);
-        echo '<h1>Erreur serveur</h1>';
-        echo '<p>Une erreur est survenue. Veuillez reessayer plus tard.</p>';
-    }
-}
+<?php include 'includes/footer.php'; ?>
