@@ -10,8 +10,8 @@ define('DEBUG', true);
 define('DB_HOST', 'localhost');
 define('DB_PORT', '5432');
 define('DB_NAME', 'iran');
-define('DB_USER', 'postgres');
-define('DB_PASS', 'admin');
+define('DB_USER', 'cindy');
+define('DB_PASS', 'cindy2301');
 
 // URL de base (modifier selon votre environnement)
 // Pour serveur PHP integre: ''
