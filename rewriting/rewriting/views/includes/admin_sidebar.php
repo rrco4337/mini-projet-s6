@@ -4,7 +4,7 @@
  */
 $currentPage = $_SERVER['REQUEST_URI'] ?? '';
 ?>
-<aside class="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-slate-200 bg-white/95 px-6 py-7 backdrop-blur xl:block">
+<aside>
   <a href="<?= url('admin') ?>" class="flex items-center gap-3">
     <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white">
       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 10-8.038 0l-2.387.477a2 2 0 00-1.021.547M6 19h12"/></svg>
@@ -23,6 +23,14 @@ $currentPage = $_SERVER['REQUEST_URI'] ?? '';
     <a href="<?= url('admin/articles') ?>" class="flex items-center gap-3 rounded-xl <?= strpos($currentPage, '/admin/articles') !== false ? 'bg-blue-50 font-semibold text-blue-700' : 'text-slate-600 transition hover:bg-slate-100 hover:text-slate-900' ?> px-4 py-3">
       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M19 21H7a2 2 0 01-2-2V5a2 2 0 012-2h12m0 18a2 2 0 002-2V5a2 2 0 00-2-2m0 18h-7m-3-8h6m-6-4h8m-8 8h8"/></svg>
       Articles
+    </a>
+    <a href="<?= url('admin/articles/drafts') ?>" class="flex items-center gap-3 rounded-xl <?= strpos($currentPage, '/admin/articles/drafts') !== false ? 'bg-blue-50 font-semibold text-blue-700' : 'text-slate-600 transition hover:bg-slate-100 hover:text-slate-900' ?> px-4 py-3">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M12 20h9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+      Brouillons
+    </a>
+    <a href="<?= url('admin/articles/archives') ?>" class="flex items-center gap-3 rounded-xl <?= strpos($currentPage, '/admin/articles/archives') !== false ? 'bg-blue-50 font-semibold text-blue-700' : 'text-slate-600 transition hover:bg-slate-100 hover:text-slate-900' ?> px-4 py-3">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M20.54 5.23l-1.39-1.68A2 2 0 0017.61 3H6.39a2 2 0 00-1.54.55L3.46 5.23A2 2 0 003 6.52V8a1 1 0 001 1h16a1 1 0 001-1V6.52a2 2 0 00-.46-1.29z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M5 9v9a2 2 0 002 2h10a2 2 0 002-2V9"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M10 13h4"/></svg>
+      Archives
     </a>
     <a href="<?= url('categories') ?>" class="flex items-center gap-3 rounded-xl <?= strpos($currentPage, '/categories') !== false ? 'bg-blue-50 font-semibold text-blue-700' : 'text-slate-600 transition hover:bg-slate-100 hover:text-slate-900' ?> px-4 py-3">
       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>

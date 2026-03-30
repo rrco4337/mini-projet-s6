@@ -11,6 +11,8 @@ $form = $articleForm ?? [];
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?= $isEdit ? 'Modifier' : 'Creer' ?> un article - BackOffice</title>
+  <meta name="description" content="Formulaire backoffice pour creer ou modifier un article Iran War News." />
+  <meta name="keywords" content="formulaire article, administration, iran war news" />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,7 +28,15 @@ $form = $articleForm ?? [];
   <?php include __DIR__ . '/../../includes/admin_sidebar.php'; ?>
 
   <div class="w-full xl:ml-72">
-    <?php include __DIR__ . '/../../includes/admin_header.php'; ?>
+    <?php
+    $adminHeaderMode = 'simple';
+    $adminSearchPlaceholder = 'Rechercher...';
+    $adminHeaderButtons = [
+      ['href' => url('/'), 'label' => 'Voir le site', 'target' => '_blank', 'class' => 'hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 md:inline-flex'],
+      ['href' => url('logout'), 'label' => 'Deconnexion', 'class' => 'rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50'],
+    ];
+    include __DIR__ . '/../../includes/admin_header.php';
+    ?>
 
     <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div class="mb-6 flex flex-wrap items-center justify-between gap-4">

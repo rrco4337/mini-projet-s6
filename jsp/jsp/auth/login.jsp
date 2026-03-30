@@ -1,8 +1,5 @@
-<?php
-/**
- * Page de connexion
- */
-?>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -41,21 +38,21 @@
 
     <div class="card shadow">
       <div class="card-body p-4">
-        <?php if (!empty($errorMessage)): ?>
+        <c:if test="${not empty errorMessage}">
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-circle me-2"></i><?= e($errorMessage) ?>
+            <i class="bi bi-exclamation-circle me-2"></i>${errorMessage}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
-        <?php endif; ?>
+        </c:if>
 
-        <?php if (!empty($successMessage)): ?>
+        <c:if test="${not empty successMessage}">
           <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle me-2"></i><?= e($successMessage) ?>
+            <i class="bi bi-check-circle me-2"></i>${successMessage}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
           </div>
-        <?php endif; ?>
+        </c:if>
 
-        <form action="<?= url('login') ?>" method="post">
+        <form action="/login" method="post">
           <div class="mb-3">
             <label for="username" class="form-label">Nom d'utilisateur</label>
             <div class="input-group">
@@ -70,7 +67,7 @@
             <div class="input-group">
               <span class="input-group-text"><i class="bi bi-lock"></i></span>
               <input type="password" class="form-control" id="password" name="password"
-                placeholder="••••••••" required />
+                     placeholder="••••••••" required />
             </div>
           </div>
 
@@ -82,7 +79,7 @@
     </div>
 
     <div class="text-center mt-4">
-      <a href="<?= url('/') ?>" class="text-white-50 text-decoration-none">
+      <a href="/" class="text-white-50 text-decoration-none">
         <i class="bi bi-arrow-left me-1"></i>Retour au site
       </a>
     </div>

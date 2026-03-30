@@ -61,13 +61,13 @@ require_once __DIR__ . '/../includes/header.php';
                 <?php if (!empty($article['categories'])): ?>
                   <div class="mb-3 flex flex-wrap gap-2">
                     <?php foreach ($article['categories'] as $cat): ?>
-                      <a href="<?= url('/?categorySlugs[]=' . e($cat['slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
+                      <a href="<?= url('/?categorySlugs=' . e($cat['slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
                         <?= e($cat['nom']) ?>
                       </a>
                     <?php endforeach; ?>
                   </div>
                 <?php elseif (!empty($article['categorie_nom'])): ?>
-                  <a href="<?= url('/?categorySlugs[]=' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-3">
+                  <a href="<?= url('/?categorySlugs=' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-3">
                     <?= e($article['categorie_nom']) ?>
                   </a>
                 <?php endif; ?>
@@ -118,13 +118,13 @@ require_once __DIR__ . '/../includes/header.php';
                   <?php if (!empty($article['categories'])): ?>
                     <div class="mb-3 flex flex-wrap gap-2">
                       <?php foreach ($article['categories'] as $cat): ?>
-                        <a href="<?= url('/?categorySlugs[]=' . e($cat['slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
+                        <a href="<?= url('/?categorySlugs=' . e($cat['slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
                           <?= e($cat['nom']) ?>
                         </a>
                       <?php endforeach; ?>
                     </div>
                   <?php elseif (!empty($article['categorie_nom'])): ?>
-                    <a href="<?= url('/?categorySlugs[]=' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-3">
+                    <a href="<?= url('/?categorySlugs=' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-3">
                       <?= e($article['categorie_nom']) ?>
                     </a>
                   <?php endif; ?>

@@ -1,8 +1,5 @@
-<?php
-/**
- * Footer du site (front-office)
- */
-?>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <footer class="mt-16 border-t border-stone bg-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -15,27 +12,23 @@
       <div>
         <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-500">Categories</h4>
         <ul class="mt-3 space-y-2 text-sm">
-          <?php
-          $footerCategories = $navCategories ?? [];
-          $footerCategories = array_slice($footerCategories, 0, 6);
-          foreach ($footerCategories as $cat):
-          ?>
-            <li><a href="<?= url('/?categorySlugs=' . e($cat['slug'])) ?>" class="text-gray-700 hover:text-ink transition-colors"><?= e($cat['nom']) ?></a></li>
-          <?php endforeach; ?>
+          <c:forEach items="${navCategories}" var="cat" end="5">
+            <li><a href="/categorie/${cat.slug}" class="text-gray-700 hover:text-ink transition-colors"><c:out value="${cat.nom}" /></a></li>
+          </c:forEach>
         </ul>
       </div>
 
       <div>
         <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-gray-500">Navigation</h4>
         <ul class="mt-3 space-y-2 text-sm">
-          <li><a href="<?= url('/') ?>" class="text-gray-700 hover:text-ink transition-colors">Accueil</a></li>
-          <li><a href="<?= url('admin') ?>" class="text-gray-700 hover:text-ink transition-colors">Administration</a></li>
+          <li><a href="/" class="text-gray-700 hover:text-ink transition-colors">Accueil</a></li>
+          <li><a href="/admin" class="text-gray-700 hover:text-ink transition-colors">Administration</a></li>
         </ul>
       </div>
     </div>
 
     <div class="mt-8 pt-4 border-t border-stone text-xs text-gray-500 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-      <p>&copy; <?= date('Y') ?> Iran War News</p>
+      <p>&copy; 2026 Iran War News</p>
       <p>Tous droits reserves</p>
     </div>
   </div>

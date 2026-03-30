@@ -1,21 +1,18 @@
-<?php
-/**
- * Header du site (front-office)
- */
-?>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><?= e($pageTitle ?? 'Iran War News') ?> - Iran War News</title>
-  <?php if (!empty($metaDescription)): ?>
-    <meta name="description" content="<?= e($metaDescription) ?>" />
-  <?php endif; ?>
-  <?php if (!empty($metaKeywords)): ?>
-    <meta name="keywords" content="<?= e($metaKeywords) ?>" />
-  <?php endif; ?>
-  <meta name="robots" content="<?= e($metaRobots ?? 'index, follow') ?>" />
+  <title><c:out value="${pageTitle}" default="Iran War News" /> - Iran War News</title>
+  <c:if test="${not empty metaDescription}">
+    <meta name="description" content="<c:out value="${metaDescription}" />" />
+  </c:if>
+  <c:if test="${not empty metaKeywords}">
+    <meta name="keywords" content="<c:out value="${metaKeywords}" />" />
+  </c:if>
+  <meta name="robots" content="<c:out value="${metaRobots}" default="index, follow" />" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -75,29 +72,29 @@
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="flex flex-col gap-3 lg:gap-4">
       <div class="flex items-end justify-between gap-4">
-        <a href="<?= url('/') ?>" class="group inline-flex flex-col leading-none">
+        <a href="/" class="group inline-flex flex-col leading-none">
           <span class="text-[11px] uppercase tracking-[0.2em] text-gray-500">Edition Internationale</span>
           <span class="font-serif text-3xl sm:text-4xl font-bold tracking-tight group-hover:text-accent transition-colors">Iran War News</span>
         </a>
-        <a href="<?= url('admin') ?>" class="text-sm font-semibold uppercase tracking-widest text-gray-600 hover:text-ink transition-colors">Administration</a>
+        <a href="/admin" class="text-sm font-semibold uppercase tracking-widest text-gray-600 hover:text-ink transition-colors">Administration</a>
       </div>
 
       <div class="h-px bg-gradient-to-r from-transparent via-stone to-transparent"></div>
 
       <nav class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] sm:text-sm">
-        <a href="<?= url('/') ?>" class="font-semibold text-ink hover:text-accent transition-colors">Accueil</a>
+        <a href="/" class="font-semibold text-ink hover:text-accent transition-colors">Accueil</a>
         <span class="text-gray-300">|</span>
-        <?php if (!empty($navCategories)): ?>
-          <?php foreach ($navCategories as $index => $cat): ?>
-            <a href="<?= url('/?categorySlugs=' . e($cat['slug'])) ?>" class="text-gray-600 hover:text-ink transition-colors"><?= e($cat['nom']) ?></a>
-            <?php if ($index < count($navCategories) - 1): ?>
-              <span class="text-gray-300">|</span>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        <?php else: ?>
+        <c:forEach items="${navCategories}" var="cat" varStatus="status">
+          <a href="/?categorySlugs=${cat.slug}" class="text-gray-600 hover:text-ink transition-colors"><c:out value="${cat.nom}" /></a>
+          <c:if test="${!status.last}">
+            <span class="text-gray-300">|</span>
+          </c:if>
+        </c:forEach>
+        <c:if test="${empty navCategories}">
           <span class="text-gray-500">Aucune categorie disponible</span>
-        <?php endif; ?>
+        </c:if>
       </nav>
     </div>
+    
   </div>
 </header>

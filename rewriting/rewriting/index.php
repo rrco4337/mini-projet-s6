@@ -5,9 +5,18 @@
  * Utilise .htaccess pour rediriger tout vers ici
  */
 
-require 'config.php';
-require 'includes/db.php';
-require 'includes/functions.php';
+// Avec le serveur PHP integre, laisser passer les fichiers statiques existants.
+if (PHP_SAPI === 'cli-server') {
+    $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    $fullPath = __DIR__ . $requestPath;
+    if (is_file($fullPath)) {
+        return false;
+    }
+}
+
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/functions.php';
 
 // Parser l'URL demandée
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

@@ -11,13 +11,13 @@ require_once __DIR__ . '/../../includes/header.php';
       <?php if (!empty($article['categories'])): ?>
         <div class="mb-4 flex flex-wrap gap-2">
           <?php foreach ($article['categories'] as $cat): ?>
-            <a href="<?= url('categorie/' . e($cat['slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
+            <a href="<?= url('/?categorySlugs=' . e($cat['slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors">
               <?= e($cat['nom']) ?>
             </a>
           <?php endforeach; ?>
         </div>
       <?php elseif (!empty($article['categorie_nom'])): ?>
-        <a href="<?= url('categorie/' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-4">
+        <a href="<?= url('/?categorySlugs=' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-full border border-stone px-3 py-1 text-xs uppercase tracking-wider text-gray-600 hover:text-ink hover:border-gray-400 transition-colors mb-4">
           <?= e($article['categorie_nom']) ?>
         </a>
       <?php endif; ?>
@@ -73,7 +73,7 @@ require_once __DIR__ . '/../../includes/header.php';
   <div class="mt-8 flex flex-wrap gap-3">
     <a href="<?= url('/') ?>" class="inline-flex items-center rounded-lg border border-stone px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors">Retour a l'accueil</a>
     <?php if (!empty($article['categorie_slug'])): ?>
-      <a href="<?= url('categorie/' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-black transition-colors">Voir la categorie</a>
+      <a href="<?= url('/?categorySlugs=' . e($article['categorie_slug'])) ?>" class="inline-flex items-center rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white hover:bg-black transition-colors">Voir la categorie</a>
     <?php endif; ?>
   </div>
 </main>

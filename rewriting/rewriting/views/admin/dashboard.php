@@ -9,6 +9,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tableau de bord - Iran War News</title>
+  <meta name="description" content="Tableau de bord backoffice pour la gestion editoriale Iran War News." />
+  <meta name="keywords" content="backoffice, dashboard admin, iran war news" />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,16 +29,18 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { background: radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.08), transparent 38%), radial-gradient(circle at 85% 0%, rgba(30, 64, 175, 0.08), transparent 30%), #f6f8fb; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { display: flex; min-height: 100vh; background: radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.08), transparent 38%), radial-gradient(circle at 85% 0%, rgba(30, 64, 175, 0.08), transparent 30%), #f6f8fb; }
+    aside { position: fixed !important; top: 0 !important; left: 0 !important; width: 288px !important; height: 100vh !important; z-index: 50 !important; overflow-y: auto !important; border-right: 1px solid #e2e8f0 !important; background-color: rgba(255, 255, 255, 0.95) !important; padding: 28px 24px; }
+    .main-wrapper { margin-left: 288px !important; width: calc(100% - 288px) !important; min-height: 100vh !important; display: flex; flex-direction: column; }
     .metric-fill { transition: width 1.2s ease; }
   </style>
 </head>
 <body class="min-h-screen font-sans text-slate-800">
-<div class="flex min-h-screen">
-  <?php include __DIR__ . '/../includes/admin_sidebar.php'; ?>
+<?php include __DIR__ . '/../includes/admin_sidebar.php'; ?>
 
-  <div class="flex min-h-screen w-full flex-col xl:ml-72">
-    <?php include __DIR__ . '/../includes/admin_header.php'; ?>
+<div class="main-wrapper">
+
 
     <main class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
       <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
@@ -163,7 +167,6 @@
       </section>
     </main>
   </div>
-</div>
 
 <script>
   const ctx = document.getElementById('statusChart').getContext('2d');
