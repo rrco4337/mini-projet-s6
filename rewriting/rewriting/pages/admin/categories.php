@@ -27,37 +27,40 @@ $categories = fetchAll('SELECT * FROM categories ORDER BY nom');
 <?php include BASE_PATH . '/includes/admin-header.php'; ?>
 
 <div class="max-w-4xl">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">Gérer les Catégories</h1>
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900">Gestion des categories</h1>
+        <p class="mt-2 text-sm text-slate-600">Structurez votre ligne editoriale avec des categories claires.</p>
+    </div>
 
-    <div class="bg-white p-8 rounded-lg border border-slate-200 mb-8">
-        <h2 class="text-xl font-bold text-gray-900 mb-6">Créer une nouvelle catégorie</h2>
+    <div class="mb-8 rounded-2xl border border-slate-200 bg-white p-8 shadow-[0_10px_25px_rgba(15,23,42,0.05)]">
+        <h2 class="mb-6 text-xl font-semibold text-slate-900">Creer une nouvelle categorie</h2>
         
-        <form method="POST" class="flex gap-4">
-            <input type="text" name="nom" placeholder="Nom de la catégorie" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        <form method="POST" class="flex flex-col gap-4 sm:flex-row">
+            <input type="text" name="nom" placeholder="Nom de la categorie" class="h-11 flex-1 rounded-xl border border-slate-300 px-4 text-sm outline-none transition focus:border-blue-300 focus:ring-2 focus:ring-blue-100" required>
             <input type="hidden" name="action" value="create">
-            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">+ Créer</button>
+            <button type="submit" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">Ajouter</button>
         </form>
     </div>
 
-    <div class="bg-white rounded-lg border border-slate-200 overflow-x-auto">
-        <div class="p-6 border-b border-slate-200">
-            <h2 class="text-lg font-bold text-gray-900">Catégories existantes</h2>
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-[0_10px_25px_rgba(15,23,42,0.05)]">
+        <div class="border-b border-slate-200 px-6 py-5">
+            <h2 class="text-lg font-semibold text-slate-900">Categories existantes</h2>
         </div>
         
         <table class="w-full">
             <thead>
-                <tr class="border-b border-slate-200 bg-slate-50">
-                    <th class="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Nom</th>
-                    <th class="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Slug</th>
-                    <th class="px-6 py-3 text-center text-xs font-semibold text-slate-600 uppercase">Articles</th>
-                    <th class="px-6 py-3 text-center text-xs font-semibold text-slate-600 uppercase">Actions</th>
+                <tr class="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">
+                    <th class="px-6 py-4">Nom</th>
+                    <th class="px-6 py-4">Slug</th>
+                    <th class="px-6 py-4 text-center">Articles</th>
+                    <th class="px-6 py-4 text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($categories as $cat): 
+                <?php foreach ($categories as $idx => $cat): 
                     $nbArticles = fetchColumn('SELECT COUNT(*) FROM articles WHERE categorie_id = ?', [$cat['id']]);
                 ?>
-                <tr class="border-b border-slate-200 hover:bg-slate-50">
+                <tr class="border-t border-slate-200 <?php echo $idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'; ?> hover:bg-blue-50/40">
                     <td class="px-6 py-4 font-semibold text-gray-900"><?php echo e($cat['nom']); ?></td>
                     <td class="px-6 py-4 text-slate-600 font-mono text-sm"><?php echo e($cat['slug']); ?></td>
                     <td class="px-6 py-4 text-center text-slate-600"><?php echo $nbArticles; ?></td>
@@ -65,7 +68,7 @@ $categories = fetchAll('SELECT * FROM categories ORDER BY nom');
                         <form method="POST" class="inline-block">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="id" value="<?php echo $cat['id']; ?>">
-                            <button type="submit" class="text-red-600 hover:text-red-800 font-semibold" onclick="return confirm('Confirmer?')">🗑️ Supprimer</button>
+                            <button type="submit" class="inline-flex rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100" onclick="return confirm('Confirmer la suppression ?')">Supprimer</button>
                         </form>
                     </td>
                 </tr>
@@ -74,7 +77,7 @@ $categories = fetchAll('SELECT * FROM categories ORDER BY nom');
         </table>
         
         <?php if (empty($categories)): ?>
-        <div class="p-8 text-center text-slate-500">Aucune catégorie.</div>
+        <div class="p-10 text-center text-sm text-slate-500">Aucune categorie.</div>
         <?php endif; ?>
     </div>
 </div>
