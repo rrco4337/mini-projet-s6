@@ -90,7 +90,7 @@ if (isLogged()) {
 
             <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 text-center text-sm text-gray-700">
                 <p><strong>Identifiant:</strong> admin</p>
-                <p><strong>Mot de passe:</strong> test123</p>
+                <p><strong>Mot de passe:</strong> admin123</p>
             </div>
         </div>
     </div>
