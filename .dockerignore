@@ -1,0 +1,9 @@
+.git
+.gitignore
+.idea
+.vscode
+**/.DS_Store
+target
+src
+jsp
+01-Miniprojet-Web design-2026.pdf

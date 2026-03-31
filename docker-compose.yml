@@ -1,0 +1,56 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: mini_s6_web
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: mini_projet_s6
+      DB_USER: postgres
+      DB_PASS: admin
+      BASE_URL: http://localhost:8000
+      APP_DEBUG: "1"
+      APP_TIMEZONE: Europe/Paris
+      SESSION_NAME: iran_session
+    volumes:
+      - ./rewriting/rewriting:/var/www/html
+      - ./docker/php/000-default.conf:/etc/apache2/sites-available/000-default.conf:ro
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: mini_s6_db
+    environment:
+      POSTGRES_DB: mini_projet_s6
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./bd/base.sql:/docker-entrypoint-initdb.d/01-base.sql:ro
+      - ./bd/init-data.sql:/docker-entrypoint-initdb.d/02-init-data.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mini_projet_s6"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:4
+    container_name: mini_s6_adminer
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
