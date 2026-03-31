@@ -2,6 +2,13 @@
 /**
  * Page d'accueil
  */
+// Variables SEO (avant le header!)
+$metaDescription = $metaDescription ?? 'Iran War News - Informations et analyses sur le conflit en Iran, dans une mise en perspective éditoriale sobre et exigeante.';
+$canonicalUrl = $canonicalUrl ?? 'http://localhost:8000/';
+$ogImage = $ogImage ?? 'http://localhost:8000/default-og-image.png';
+$pageType = $pageType ?? 'website';
+$currentUrl = $currentUrl ?? 'http://localhost:8000/';
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
@@ -77,11 +84,11 @@ require_once __DIR__ . '/../includes/header.php';
                     <?= e($article['categorie_nom']) ?>
                   </a>
                 <?php endif; ?>
-                <h3 class="font-serif text-2xl leading-snug font-semibold group-hover:text-accent transition-colors">
+                <h2 class="font-serif text-2xl leading-snug font-semibold group-hover:text-accent transition-colors">
                   <a href="<?= url('article/' . e($article['slug'])) ?>">
                     <?= e($article['titre']) ?>
                   </a>
-                </h3>
+                </h2>
                 <?php if (!empty($article['chapeau'])): ?>
                   <p class="mt-3 text-gray-600 leading-relaxed">
                     <?= e($article['chapeau']) ?>
@@ -116,7 +123,13 @@ require_once __DIR__ . '/../includes/header.php';
             <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
                 <?php if (!empty($article['imageUrl'])): ?>
                   <div class="md:col-span-4">
-                    <img src="<?= e($article['imageUrl']) ?>" alt="<?= e($article['imageAlt'] ?? 'Illustration de l article') ?>" class="w-full h-52 object-cover rounded-xl" />
+                    <img 
+                      loading="lazy"
+                      src="<?= e($article['imageUrl']) ?>" 
+                      alt="<?= e($article['titre']) ?>" 
+                      class="w-full h-52 object-cover rounded-xl" 
+                      decoding="async"
+                    />
                   </div>
                 <?php endif; ?>
 
@@ -134,11 +147,11 @@ require_once __DIR__ . '/../includes/header.php';
                       <?= e($article['categorie_nom']) ?>
                     </a>
                   <?php endif; ?>
-                  <h3 class="font-serif text-3xl leading-tight font-semibold mb-2 hover:text-accent transition-colors">
+                  <h2 class="font-serif text-3xl leading-tight font-semibold mb-2 hover:text-accent transition-colors">
                     <a href="<?= url('article/' . e($article['slug'])) ?>">
                       <?= e($article['titre']) ?>
                     </a>
-                  </h3>
+                  </h2>
                   <?php if (!empty($article['sous_titre'])): ?>
                     <p class="text-gray-500 text-lg mb-2"><?= e($article['sous_titre']) ?></p>
                   <?php endif; ?>

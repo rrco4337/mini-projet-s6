@@ -58,12 +58,17 @@
   <!-- Fonts (avec display: swap pour LCP) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- Tailwind CSS - ASYNC pour ne pas bloquer le rendu -->
-  <script async src="https://cdn.tailwindcss.com"></script>
-  <script>
+  <!-- Tailwind CSS - DEFER (ne pas bloquer le rendu) -->
+  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script defer>
+    // Reduced Tailwind config - only loaded classes to reduce bundle size
     tailwind.config = {
+      corePlugins: {
+        preflight: true,
+      },
       theme: {
         extend: {
           colors: {

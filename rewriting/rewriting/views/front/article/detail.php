@@ -2,6 +2,14 @@
 /**
  * Detail d'un article
  */
+
+// Variables SEO (avant le header!)
+$metaDescription = $metaDescription ?? '';
+$canonicalUrl = $canonicalUrl ?? '';
+$ogImage = $ogImage ?? '';
+$pageType = $pageType ?? 'article';
+$currentUrl = $currentUrl ?? '';
+
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
