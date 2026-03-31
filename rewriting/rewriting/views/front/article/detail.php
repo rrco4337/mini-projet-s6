@@ -5,6 +5,37 @@
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
+<!-- JSON-LD Schema.org pour SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": <?= json_encode($article['titre']) ?>,
+  "description": <?= json_encode($article['chapeau'] ?? '') ?>,
+  "image": <?= json_encode($article['imageUrl'] ?? '') ?>,
+  "datePublished": "<?= e($article['date_publication'] ?? date('c')) ?>",
+  "dateModified": "<?= e($article['date_modification'] ?? date('c')) ?>",
+  "author": {
+    "@type": "Organization",
+    "name": "Iran War News"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Iran War News",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<?= url('/logo.png') ?>",
+      "width": 200,
+      "height": 60
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "<?= e($canonicalUrl ?? '') ?>"
+  }
+}
+</script>
+
 <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
   <article class="bg-white rounded-2xl border border-stone shadow-editorial p-6 sm:p-10">
     <header class="mb-8 pb-6 border-b border-stone">
@@ -53,7 +84,13 @@ require_once __DIR__ . '/../../includes/header.php';
           <?php foreach ($article['galleryImages'] as $img): ?>
             <div>
               <figure>
-                <img src="<?= e($img['url']) ?>" alt="<?= e($img['alt'] ?? 'Illustration de l article') ?>" class="w-full h-64 object-cover rounded-xl border border-stone" />
+                <img 
+                  loading="lazy"
+                  src="<?= e($img['url']) ?>" 
+                  alt="<?= e($img['alt'] ?? e($article['titre'])) ?>" 
+                  class="w-full h-64 object-cover rounded-xl border border-stone" 
+                  decoding="async"
+                />
               </figure>
             </div>
           <?php endforeach; ?>
@@ -61,7 +98,13 @@ require_once __DIR__ . '/../../includes/header.php';
       </section>
     <?php elseif (!empty($article['imageUrl'])): ?>
       <figure class="mb-8">
-        <img src="<?= e($article['imageUrl']) ?>" alt="<?= e($article['imageAlt'] ?? 'Illustration de l article') ?>" class="w-full h-auto rounded-xl border border-stone" />
+        <img 
+          loading="lazy"
+          src="<?= e($article['imageUrl']) ?>" 
+          alt="<?= e($article['titre']) ?>" 
+          class="w-full h-auto rounded-xl border border-stone" 
+          decoding="async"
+        />
       </figure>
     <?php endif; ?>
 

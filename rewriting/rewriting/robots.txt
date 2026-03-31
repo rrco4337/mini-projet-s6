@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /logout
+Disallow: /uploads
+
+User-agent: Googlebot
+Allow: /
+
+Crawl-delay: 0
+
+Sitemap: https://yoursite.com/sitemap.xml

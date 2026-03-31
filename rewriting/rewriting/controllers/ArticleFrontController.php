@@ -24,10 +24,21 @@ class ArticleFrontController extends Controller
         // Recuperer la galerie d'images
         $article['galleryImages'] = Article::getGalleryImages($article['id']);
 
+        // Variables SEO et Open Graph
+        $metaDescription = substr($article['meta_description'] ?? $article['chapeau'] ?? '', 0, 155);
+        $canonicalUrl = 'http://localhost:8000/article/' . $article['slug'];
+        $ogImage = $article['imageUrl'] ?? 'http://localhost:8000/default-og-image.png';
+        $pageType = 'article';
+        $currentUrl = $canonicalUrl;
+
         $this->view('front/article/detail', [
             'pageTitle' => $article['titre'],
-            'metaDescription' => $article['meta_description'] ?? '',
+            'metaDescription' => $metaDescription,
             'metaKeywords' => $article['meta_keywords'] ?? '',
+            'canonicalUrl' => $canonicalUrl,
+            'ogImage' => $ogImage,
+            'pageType' => $pageType,
+            'currentUrl' => $currentUrl,
             'article' => $article
         ]);
     }

@@ -55,7 +55,13 @@ require_once __DIR__ . '/../includes/header.php';
         <?php foreach (array_slice($featuredArticles, 0, 3) as $article): ?>
           <article class="group rounded-2xl border border-stone bg-white shadow-editorial overflow-hidden hover:-translate-y-1 transition-all duration-300">
               <?php if (!empty($article['imageUrl'])): ?>
-                <img src="<?= e($article['imageUrl']) ?>" alt="<?= e($article['imageAlt'] ?? 'Illustration de l article') ?>" class="h-48 w-full object-cover" />
+                <img 
+                  loading="lazy"
+                  src="<?= e($article['imageUrl']) ?>" 
+                  alt="<?= e($article['titre']) ?>" 
+                  class="h-48 w-full object-cover" 
+                  decoding="async"
+                />
               <?php endif; ?>
               <div class="p-5">
                 <?php if (!empty($article['categories'])): ?>

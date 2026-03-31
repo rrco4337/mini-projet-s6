@@ -45,18 +45,9 @@
   ↑
 </button>
 
-<script>
-  const scrollTopBtn = document.getElementById('scrollTop');
-
-  window.addEventListener('scroll', function () {
-    if (window.scrollY > 300) {
-      scrollTopBtn.classList.remove('hidden');
-      scrollTopBtn.classList.add('flex');
-    } else {
-      scrollTopBtn.classList.add('hidden');
-      scrollTopBtn.classList.remove('flex');
-    }
-  });
+<script defer>
+window.addEventListener('scroll',()=>{const btn=document.getElementById('scrollTop');if(!btn)return;window.scrollY>300?(btn.classList.remove('hidden'),btn.classList.add('flex')):(btn.classList.add('hidden'),btn.classList.remove('flex'))});document.getElementById('scrollTop')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
 
   scrollTopBtn.addEventListener('click', function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });

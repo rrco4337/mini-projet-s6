@@ -30,6 +30,11 @@ class HomeController extends Controller
 
         $this->view('front/home', [
             'pageTitle' => 'Accueil',
+            'metaDescription' => 'Iran War News - Informations et analyses sur le conflit en Iran, dans une mise en perspective éditoriale sobre et exigeante.',
+            'canonicalUrl' => 'http://localhost:8000/',
+            'ogImage' => 'http://localhost:8000/default-og-image.png',
+            'pageType' => 'website',
+            'currentUrl' => 'http://localhost:8000/',
             'articles' => $articles,
             'featuredArticles' => $featuredArticles,
             'selectedCategorySlugs' => $categorySlugs,

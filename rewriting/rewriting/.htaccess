@@ -1,4 +1,32 @@
-# Réécriture d'URL pour routeur
+# ========== CACHE & COMPRESSION ==========
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresDefault "access plus 2 days"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json font/woff font/woff2
+</IfModule>
+
+# Serve WebP when available
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_ACCEPT} image/webp
+    RewriteCond %{REQUEST_FILENAME} !\.webp$
+    RewriteCond %{REQUEST_FILENAME}.webp -f
+    RewriteRule (.+)$ $1.webp [T=image/webp,L]
+</IfModule>
+
+# ========== RÉÉCRITURE D'URL ==========
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
@@ -26,11 +54,12 @@
     RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
 
-# Sécurité
+# ========== SÉCURITÉ ==========
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
 # Protéger fichiers sensibles
